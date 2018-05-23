@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ProductList from './components/ProductList';
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
           <h1 className="App-title">ASPgems &amp; React</h1>
         </header>
         <p className="App-intro">Coming soon...</p>
+        <ProductList />
       </div>
     );
   }
