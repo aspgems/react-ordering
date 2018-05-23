@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProductItem from './ProductItem';
+import { API_HOST, DEFAULT_QUERY, NAMESPACE } from './config';
 
 class ProductList extends Component {
   render() {
@@ -19,6 +20,11 @@ class ProductList extends Component {
         </div>
       </div>
     );
+  }
+  componentDidMount() {
+    fetch(API_HOST + DEFAULT_QUERY)
+      .then(response => response.json())
+      .then(data => this.setState({ [NAMESPACE]: data }));
   }
 }
 
