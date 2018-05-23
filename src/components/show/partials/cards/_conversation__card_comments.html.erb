@@ -1,0 +1,23 @@
+<div class="conversation-card__container">
+  <!--argument header-->
+  <%= render "scorecard/show/partials/cards/conversation__card_header" %>
+  <!--argument content-->
+  <div class="conversation-card__content">
+    <%= render "scorecard/show/partials/cards/conversation__card_scorecard" %>
+  </div>
+
+  <!--responses block-->
+  <div class="conversation-card__response-list">
+    <%= render "challenge/show/partials/cards/conversation__card_response" %>
+    <%= render "challenge/show/partials/cards/conversation__card_response" %>
+  </div>
+  <!--response editor-->
+  <%= render "challenge/show/partials/cards/conversation__card_editor" %>
+  <div class="conversation-card__footer_reply-notification">
+    <span><a>Jaime Gómez-Ulla</a>, <a>Andrea Fontecilla</a> y <a>2 personas más</a> han comentado</span>
+    <div class="conversation-card__footer_reply-notification_icon">
+      <a><i class="icon-icn-comments"></i></a>
+      <span class="badge">2</span>
+    </div>
+  </div>
+</div>

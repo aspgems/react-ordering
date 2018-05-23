@@ -43,12 +43,13 @@ class ProductList extends Component {
   render() {
     return (
       <div>
-        Product List
-        <ul>
+        <h1>Product List</h1>
+
+        <div class="row">
           {this.state.products.map(p => {
             return <ProductItem key={p.id} product={p} />;
           })}
-        </ul>
+        </div>
       </div>
     );
   }
