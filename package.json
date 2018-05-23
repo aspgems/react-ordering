@@ -1,5 +1,6 @@
 {
   "name": "react-ordering",
+  "homepage": "https://aspgems.github.io/react-ordering",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
