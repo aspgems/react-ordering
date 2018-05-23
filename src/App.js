@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
 import ProductList from './components/ProductList';
-import ShopingCart from './components/ShopingCart';
+import ShoppingCart from './components/ShoppingCart';
 
 const API = 'http://localhost:3000';
 const DEFAULT_QUERY = '/data/products.json';
@@ -72,7 +72,7 @@ class App extends Component {
               />
             </Col>
             <Col sm="12" md="4">
-              <ShopingCart
+              <ShoppingCart
                 shopingCart={this.state.shoping_cart}
                 removeCallback={this.remove.bind(this)}
                 decreaseCallback={this.decrease.bind(this)}
