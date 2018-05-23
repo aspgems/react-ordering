@@ -3,13 +3,14 @@ import Product from './Product';
 
 class ProductItem extends Component {
   add() {
-    alert('here we go');
+    this.props.addCallback(this.props.product);
   }
+
   render() {
     return (
       <div>
         <Product product={this.props.product} />
-        <button onClick={this.add}>Add</button>
+        <button onClick={this.add.bind(this)}>Add</button>
       </div>
     );
   }
