@@ -11,7 +11,7 @@ import {
 class ProductItem extends Component {
   render() {
     return (
-      <div class="col-sm-12 col-md-6">
+      <div className="col-sm-12 col-md-6">
         <Card>
           <CardBody>
             <CardTitle>{this.props.product.description}</CardTitle>

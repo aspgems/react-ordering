@@ -45,7 +45,7 @@ class ProductList extends Component {
       <div>
         <h1>Product List</h1>
 
-        <div class="row">
+        <div className="row">
           {this.state.products.map(p => {
             return <ProductItem key={p.id} product={p} />;
           })}
