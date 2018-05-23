@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
 import ProductList from './components/ProductList';
@@ -12,7 +13,16 @@ class App extends Component {
           <h1 className="App-title">ASPgems &amp; React</h1>
         </header>
         <p className="App-intro">Coming soon...</p>
-        <ProductList />
+        <Container>
+          <Row>
+            <Col sm="12" md="8">
+              <ProductList />
+            </Col>
+            <Col sm="12" md="4">
+              Order List
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
