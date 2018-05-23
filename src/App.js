@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
-import ProductList from './components/ProductList';
-import ShoppingCart from './components/ShoppingCart';
+import { ProductList } from './components/Catalogue/';
+import { ShoppingCart } from './components/ShoppingCart/';
 
 const API = 'http://localhost:3000';
 const DEFAULT_QUERY = '/data/products.json';
