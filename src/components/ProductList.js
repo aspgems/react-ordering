@@ -45,8 +45,8 @@ class ProductList extends Component {
       <div>
         Product List
         <ul>
-          {this.state.products.map(function(product) {
-            return <ProductItem product={product} />;
+          {this.state.products.map(p => {
+            return <ProductItem key={p.id} product={p} />;
           })}
         </ul>
       </div>
