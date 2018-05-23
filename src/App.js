@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
 import ProductList from './components/ProductList';
@@ -62,16 +63,24 @@ class App extends Component {
           <h1 className="App-title">ASPgems &amp; React</h1>
         </header>
         <p className="App-intro">Coming soon...</p>
-        <ProductList
-          products={this.state.products}
-          addCallback={this.add.bind(this)}
-        />
-        <ShopingCart
-          shopingCart={this.state.shoping_cart}
-          removeCallback={this.remove.bind(this)}
-          decreaseCallback={this.decrease.bind(this)}
-          increaseCallback={this.increase.bind(this)}
-        />
+        <Container>
+          <Row>
+            <Col sm="12" md="8">
+              <ProductList
+                products={this.state.products}
+                addCallback={this.add.bind(this)}
+              />
+            </Col>
+            <Col sm="12" md="4">
+              <ShopingCart
+                shopingCart={this.state.shoping_cart}
+                removeCallback={this.remove.bind(this)}
+                decreaseCallback={this.decrease.bind(this)}
+                increaseCallback={this.increase.bind(this)}
+              />
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

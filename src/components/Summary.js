@@ -6,6 +6,7 @@ class Summary extends Component {
 
     this.props.orders.map(o => {
       total += o.quantity * parseFloat(o.product.price);
+      return total;
     });
 
     return <div>{total} €</div>;
