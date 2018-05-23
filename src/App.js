@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ProductList from './components/ProductList';
+import ShoppingCart from './components/ShoppingCart';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
         </header>
         <p className="App-intro">Coming soon...</p>
         <ProductList />
+        <ShoppingCart />
       </div>
     );
   }
