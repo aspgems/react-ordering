@@ -21,7 +21,9 @@ class ProductItem extends Component {
             <CardTitle>{this.props.product.description}</CardTitle>
             <CardSubtitle>{this.props.product.category}</CardSubtitle>
             <CardText>{this.props.product.price}</CardText>
-            <Button color="primary">Add to cart</Button>
+            <Button onClick={this.add.bind(this)} color="primary">
+              Add to cart
+            </Button>
           </CardBody>
         </Card>
       </div>
