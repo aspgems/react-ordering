@@ -4,62 +4,15 @@ import './App.css';
 import ProductList from './components/ProductList';
 import ShopingCart from './components/ShopingCart';
 
+const API = 'http://localhost:3000';
+const DEFAULT_QUERY = '/data/products.json';
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [
-        {
-          id: 'A101',
-          description: 'Screwdriver',
-          category: '1',
-          price: '9.75'
-        },
-        {
-          id: 'A102',
-          description: 'Electric screwdriver',
-          category: '1',
-          price: '49.50'
-        },
-        {
-          id: 'B101',
-          description: 'Basic on-off switch',
-          category: '2',
-          price: '4.99'
-        },
-        {
-          id: 'B102',
-          description: 'Press button',
-          category: '2',
-          price: '4.99'
-        },
-        {
-          id: 'B103',
-          description: 'Switch with motion detector',
-          category: '2',
-          price: '12.95'
-        }
-      ],
-      shoping_cart: [
-        {
-          product: {
-            id: 'A101',
-            description: 'Screwdriver',
-            category: '1',
-            price: '9.75'
-          },
-          quantity: 2
-        },
-        {
-          product: {
-            id: 'A102',
-            description: 'Electric screwdriver',
-            category: '1',
-            price: '49.50'
-          },
-          quantity: 1
-        }
-      ]
+      products: [],
+      shoping_cart: []
     };
   }
 
@@ -121,6 +74,12 @@ class App extends Component {
         />
       </div>
     );
+  }
+
+  componentDidMount() {
+    fetch(API + DEFAULT_QUERY)
+      .then(response => response.json())
+      .then(data => this.setState({ products: data }));
   }
 }
 

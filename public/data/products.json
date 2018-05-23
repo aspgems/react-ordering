@@ -28,5 +28,11 @@
     "description": "Switch with motion detector",
     "category": "2",
     "price": "12.95"
+  },
+  {
+    "id": "B104",
+    "description":  "Jamón de jabugo",
+    "category": "3",
+    "price": "255"
   }
 ]
