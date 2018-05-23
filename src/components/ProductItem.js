@@ -7,7 +7,6 @@ import {
   CardSubtitle,
   Button
 } from 'reactstrap';
-import Product from './Product';
 
 class ProductItem extends Component {
   render() {
