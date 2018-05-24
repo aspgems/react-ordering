@@ -21,7 +21,11 @@ class ProductItem extends Component {
             <CardTitle>{this.props.product.description}</CardTitle>
             <CardSubtitle>{this.props.product.category}</CardSubtitle>
             <CardText>{this.props.product.price}</CardText>
-            <Button onClick={this.add.bind(this)} color="primary">
+            <Button
+              onClick={this.add.bind(this)}
+              color="primary"
+              id={'button_add_' + this.props.product.id}
+            >
               Add to cart
             </Button>
           </CardBody>
