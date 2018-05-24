@@ -2,19 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-const fetchPromise = Promise.resolve({
-  json: () =>
-    Promise.resolve({
-      id: 'A101',
-      description: 'Screwdriver',
-      category: '1',
-      price: '9.75'
-    })
-});
-global.fetch = () => fetchPromise;
+describe('Application tests', () => {
+  beforeEach(() => {
+    fetch.resetMocks();
+  });
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  it('renders without crashing', () => {
+    fetch.mockResponse(
+      JSON.stringify({
+        id: 'A101',
+        description: 'Screwdriver',
+        category: '1',
+        price: '9.75'
+      })
+    );
+
+    const div = document.createElement('div');
+    ReactDOM.render(<App />, div);
+    ReactDOM.unmountComponentAtNode(div);
+  });
 });
