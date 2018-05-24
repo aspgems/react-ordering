@@ -2,57 +2,46 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
-import ProductList from './components/ProductList';
-import ShoppingCart from './components/ShoppingCart';
-
-const API = 'http://localhost:3000';
-const DEFAULT_QUERY = '/data/products.json';
+import {
+  ProductList,
+  initState as initCatalogueState,
+  NAMESPACE as CATALOGUE_NAMESPACE,
+  API_HOST as CATALOGUE_API_HOST,
+  DEFAULT_QUERY as PRODUCTS_QUERY
+} from './components/Catalogue/';
+import {
+  ShoppingCart,
+  initState as initShoppingCartState,
+  increaseItemCount,
+  decreaseItemCount,
+  removeItem,
+  NAMESPACE as SHOPPING_CART_NAMESPACE,
+  addItem
+} from './components/ShoppingCart/';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
-      shoping_cart: []
+      [CATALOGUE_NAMESPACE]: initCatalogueState(),
+      [SHOPPING_CART_NAMESPACE]: initShoppingCartState()
     };
   }
 
   increase(index) {
-    let shopingCart = this.state.shoping_cart.slice();
-
-    shopingCart[index].quantity += 1;
-
-    this.setState({ shoping_cart: shopingCart });
+    this.setState(increaseItemCount(index, this.state.shoppingCart));
   }
 
   decrease(index) {
-    let shopingCart = this.state.shoping_cart.slice();
-
-    if (shopingCart[index].quantity > 0) {
-      shopingCart[index].quantity -= 1;
-
-      this.setState({ shoping_cart: shopingCart });
-    }
+    this.setState(decreaseItemCount(index, this.state.shoppingCart));
   }
 
   remove(index) {
-    let shopingCart = this.state.shoping_cart.slice();
-
-    shopingCart.splice(index, 1);
-
-    this.setState({ shoping_cart: shopingCart });
+    this.setState(removeItem(index, this.state.shoppingCart));
   }
 
   add(product) {
-    // TODO Increase quantity for already existing items in the shoping list.
-    let shopingCart = this.state.shoping_cart.slice();
-
-    shopingCart.push({
-      product: product,
-      quantity: 1
-    });
-
-    this.setState({ shoping_cart: shopingCart });
+    this.setState(addItem(product, this.state.shoppingCart));
   }
 
   render() {
@@ -67,13 +56,13 @@ class App extends Component {
           <Row>
             <Col sm="12" md="8">
               <ProductList
-                products={this.state.products}
+                products={this.state[CATALOGUE_NAMESPACE]}
                 addCallback={this.add.bind(this)}
               />
             </Col>
             <Col sm="12" md="4">
               <ShoppingCart
-                shopingCart={this.state.shoping_cart}
+                shoppingCart={this.state[SHOPPING_CART_NAMESPACE]}
                 removeCallback={this.remove.bind(this)}
                 decreaseCallback={this.decrease.bind(this)}
                 increaseCallback={this.increase.bind(this)}
@@ -86,9 +75,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(API + DEFAULT_QUERY)
+    fetch(CATALOGUE_API_HOST + PRODUCTS_QUERY)
       .then(response => response.json())
-      .then(data => this.setState({ products: data }));
+      .then(data => this.setState({ [CATALOGUE_NAMESPACE]: data }))
+      .catch(e => console.log(e));
   }
 }
 

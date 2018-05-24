@@ -8,12 +8,12 @@ class ShoppingCart extends Component {
       <div>
         <h2>Shopping Cart</h2>
         <OrderItemList
-          orders={this.props.shopingCart}
+          orders={this.props.shoppingCart}
           removeCallback={this.props.removeCallback}
           increaseCallback={this.props.increaseCallback}
           decreaseCallback={this.props.decreaseCallback}
         />
-        <Summary orders={this.props.shopingCart} />
+        <Summary orders={this.props.shoppingCart} />
       </div>
     );
   }
