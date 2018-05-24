@@ -6,6 +6,7 @@ class ShoppingCart extends Component {
   render() {
     return (
       <div>
+        <h2>Shopping Cart</h2>
         <OrderItemList
           orders={this.props.shopingCart}
           removeCallback={this.props.removeCallback}

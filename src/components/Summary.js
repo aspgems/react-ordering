@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Alert } from 'reactstrap';
 
 class Summary extends Component {
   render() {
@@ -9,7 +10,7 @@ class Summary extends Component {
       return total;
     });
 
-    return <div>{total} €</div>;
+    return <Alert color="dark">Total: {total} €</Alert>;
   }
 }
 
