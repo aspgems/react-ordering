@@ -1,4 +1,4 @@
-import * as actions from './actions';
+import * as actions from '../actions';
 
 describe('initState', () => {
   test('returns an empty array', () => {
