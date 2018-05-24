@@ -51,7 +51,6 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">ASPgems &amp; React</h1>
         </header>
-        <p className="App-intro">Coming soon...</p>
         <Container>
           <Row>
             <Col sm="12" md="8">
