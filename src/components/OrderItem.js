@@ -6,12 +6,7 @@ import {
   Button
 } from 'reactstrap';
 import { ListGroupItem } from 'reactstrap';
-
-const badgeButton = {
-  cursor: 'pointer',
-  margin: '0 0 0 5px',
-  width: '22px'
-};
+import './OrderItem.css';
 
 class OrderItem extends Component {
   increase() {
@@ -41,14 +36,14 @@ class OrderItem extends Component {
             <Badge
               onClick={this.decrease.bind(this)}
               color="secondary"
-              style={badgeButton}
+              className="badgeButton"
             >
               -
             </Badge>
             <Badge
               onClick={this.increase.bind(this)}
               color="secondary"
-              style={badgeButton}
+              className="badgeButton"
             >
               +
             </Badge>
