@@ -1,24 +1,22 @@
-import { NAMESPACE } from './config';
-
 export function initState() {
   return [];
 }
 
 export function increaseItemCount(index, state) {
   state[index].quantity += 1;
-  return { [NAMESPACE]: state };
+  return state;
 }
 
 export function decreaseItemCount(index, state) {
   if (state[index].quantity > 0) {
     state[index].quantity -= 1;
   }
-  return { [NAMESPACE]: state };
+  return state;
 }
 
 export function removeItem(index, state) {
   state.splice(index, 1);
-  return { [NAMESPACE]: state };
+  return state;
 }
 
 export function addItem(item, state) {
@@ -28,6 +26,6 @@ export function addItem(item, state) {
       product: item,
       quantity: 1
     });
-    return { [NAMESPACE]: state };
   }
+  return state;
 }
