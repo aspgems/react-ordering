@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { ListGroup } from 'reactstrap';
 import OrderItem from './OrderItem';
 
 class OrderItemList extends Component {
   render() {
     return (
-      <div>
+      <ListGroup>
         {this.props.orders.map((order, index) => {
           return (
             <OrderItem
@@ -17,7 +18,7 @@ class OrderItemList extends Component {
             />
           );
         })}
-      </div>
+      </ListGroup>
     );
   }
 }
