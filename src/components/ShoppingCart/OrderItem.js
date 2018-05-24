@@ -35,7 +35,7 @@ class OrderItem extends Component {
           {this.props.order.quantity} x € {this.props.order.product.price}
         </ListGroupItemText>
         <ListGroupItemText>
-          Subtotal Item:{' '}
+          Subtotal Item: €{' '}
           {this.props.order.quantity *
             parseFloat(this.props.order.product.price)}{' '}
           <Button outline color="danger" onClick={this.remove.bind(this)}>
