@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Summary from './Summary';
 import OrderItemList from './OrderItemList';
 
@@ -18,5 +19,12 @@ class ShoppingCart extends Component {
     );
   }
 }
+
+ShoppingCart.propTypes = {
+  shoppingCart: PropTypes.array.isRequired,
+  removeCallback: PropTypes.func.isRequired,
+  increaseCallback: PropTypes.func.isRequired,
+  decreaseCallback: PropTypes.func.isRequired
+};
 
 export default ShoppingCart;

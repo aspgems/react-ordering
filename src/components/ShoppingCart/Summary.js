@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Alert } from 'reactstrap';
 
 class Summary extends Component {
@@ -13,5 +14,9 @@ class Summary extends Component {
     return <Alert color="dark">Total: {total} €</Alert>;
   }
 }
+
+Summary.propTypes = {
+  orders: PropTypes.array.isRequired
+};
 
 export default Summary;

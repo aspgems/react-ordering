@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ListGroup } from 'reactstrap';
 import OrderItem from './OrderItem';
 
@@ -22,5 +23,12 @@ class OrderItemList extends Component {
     );
   }
 }
+
+OrderItemList.propTypes = {
+  orders: PropTypes.array.isRequired,
+  removeCallback: PropTypes.func.isRequired,
+  increaseCallback: PropTypes.func.isRequired,
+  decreaseCallback: PropTypes.func.isRequired
+};
 
 export default OrderItemList;

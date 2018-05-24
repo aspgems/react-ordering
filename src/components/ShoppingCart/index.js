@@ -5,3 +5,4 @@ export { default as ShoppingCart } from './ShoppingCart';
 export { default as Summary } from './Summary';
 export * from './actions';
 export * from './config';
+export { default as PropTypes } from './PropTypes';
