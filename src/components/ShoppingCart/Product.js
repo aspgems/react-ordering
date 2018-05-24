@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ProductPropType from './PropTypes';
 
 class Product extends Component {
   render() {
@@ -13,5 +14,9 @@ class Product extends Component {
     );
   }
 }
+
+Product.propTypes = {
+  product: ProductPropType
+};
 
 export default Product;

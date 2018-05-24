@@ -1,10 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import ProductItem from './ProductItem';
+import OrderItem from './OrderItem';
 import 'bootstrap/dist/css/bootstrap.css';
-
-storiesOf('ProductItem', module).add('standard', () => (
-  <ProductItem
+storiesOf('OrderItem', module).add('standard', () => (
+  <OrderItem
     product={{
       id: 'B103',
       description: 'Switch with motion detector',

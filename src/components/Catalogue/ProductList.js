@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ProductItem from './ProductItem';
 
 class ProductList extends Component {
@@ -21,5 +22,10 @@ class ProductList extends Component {
     );
   }
 }
+
+ProductList.propTypes = {
+  products: PropTypes.array.isRequired,
+  addCallback: PropTypes.func.isRequired
+};
 
 export default ProductList;

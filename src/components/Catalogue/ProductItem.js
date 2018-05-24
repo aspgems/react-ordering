@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { ProductPropType } from './PropTypes';
+
 import {
   Card,
   CardText,
@@ -34,5 +37,10 @@ class ProductItem extends Component {
     );
   }
 }
+
+ProductItem.propTypes = {
+  addCallback: PropTypes.func.isRequired,
+  product: ProductPropType
+};
 
 export default ProductItem;

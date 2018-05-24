@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import {
-  ListGroupItemHeading,
-  ListGroupItemText,
-  Badge,
-  Button
-} from 'reactstrap';
+import PropTypes from 'prop-types';
+import { OrderPropType } from './PropTypes';
+import { ListGroupItemHeading, ListGroupItemText, Button } from 'reactstrap';
 import { ListGroupItem } from 'reactstrap';
 import './OrderItem.css';
 
@@ -24,42 +21,38 @@ class OrderItem extends Component {
   render() {
     return (
       <ListGroupItem>
-        <div>Product Item {this.props.order.product.id}</div>
         <ListGroupItemHeading>
           {this.props.order.product.description}
+          <br />
         </ListGroupItemHeading>
         <ListGroupItemText>
-          <div>{this.props.order.product.price}</div>
-          <div>{this.props.order.product.category}</div>
-          <div>
-            Quantity: {this.props.order.quantity}
-            <Badge
-              onClick={this.decrease.bind(this)}
-              color="secondary"
-              className="badgeButton"
-            >
-              -
-            </Badge>
-            <Badge
-              onClick={this.increase.bind(this)}
-              color="secondary"
-              className="badgeButton"
-            >
-              +
-            </Badge>
-          </div>
-          <div>
-            Subtotal Item:{' '}
-            {this.props.order.quantity *
-              parseFloat(this.props.order.product.price)}
-          </div>
+          <Button onClick={this.decrease.bind(this)} color="secondary">
+            -
+          </Button>{' '}
+          <Button onClick={this.increase.bind(this)} color="secondary">
+            +
+          </Button>{' '}
+          {this.props.order.quantity} x € {this.props.order.product.price}
         </ListGroupItemText>
-        <Button outline color="danger" onClick={this.remove.bind(this)}>
-          Remove
-        </Button>
+        <ListGroupItemText>
+          Subtotal Item:{' '}
+          {this.props.order.quantity *
+            parseFloat(this.props.order.product.price)}{' '}
+          <Button outline color="danger" onClick={this.remove.bind(this)}>
+            Remove
+          </Button>
+        </ListGroupItemText>
       </ListGroupItem>
     );
   }
 }
+
+OrderItem.propTypes = {
+  order: OrderPropType,
+  increaseCallback: PropTypes.func.isRequired,
+  decreaseCallback: PropTypes.func.isRequired,
+  removeCallback: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired
+};
 
 export default OrderItem;
