@@ -9,6 +9,10 @@ import {
 } from 'reactstrap';
 
 class ProductItem extends Component {
+  add() {
+    this.props.addCallback(this.props.product);
+  }
+
   render() {
     return (
       <div className="col-sm-12 col-md-6">
@@ -17,7 +21,9 @@ class ProductItem extends Component {
             <CardTitle>{this.props.product.description}</CardTitle>
             <CardSubtitle>{this.props.product.category}</CardSubtitle>
             <CardText>{this.props.product.price}</CardText>
-            <Button color="primary">Add to cart</Button>
+            <Button onClick={this.add.bind(this)} color="primary">
+              Add to cart
+            </Button>
           </CardBody>
         </Card>
       </div>
