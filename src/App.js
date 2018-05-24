@@ -77,7 +77,8 @@ class App extends Component {
   componentDidMount() {
     fetch(CATALOGUE_API_HOST + PRODUCTS_QUERY)
       .then(response => response.json())
-      .then(data => this.setState({ [CATALOGUE_NAMESPACE]: data }));
+      .then(data => this.setState({ [CATALOGUE_NAMESPACE]: data }))
+      .catch(e => console.log(e));
   }
 }
 
