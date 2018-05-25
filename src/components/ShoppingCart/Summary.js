@@ -7,13 +7,12 @@ class Summary extends Component {
     let total = 0;
 
     this.props.items.map(item => {
-      total += (
-        Number(item.quantity) * Number(parseFloat(item.unitPrice))
-      ).toFixed(2);
+      total += item.quantity * item.unitPrice;
+
       return total;
     });
 
-    return <Alert color="dark">Total: € {Number(total).toFixed(2)}</Alert>;
+    return <Alert color="dark">Total: € {total.toFixed(2)}</Alert>;
   }
 }
 
