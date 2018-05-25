@@ -26,7 +26,7 @@ export function increaseItemCount(index, state) {
 export function decreaseItemCount(index, state) {
   let unitPrice = parseFloat(state.items[index].unitPrice);
 
-  if (state.items[index].quantity > 0) {
+  if (state.items[index].quantity > 1) {
     state.items[index].quantity -= 1;
     state.items[index].total -= unitPrice;
     state.total -= unitPrice;
