@@ -3,30 +3,25 @@ export function initState() {
 }
 
 export function increaseItemCount(index, state) {
-  let unitPrice = parseFloat(state.items[index].unitPrice);
-
-  state.items[index].quantity += 1;
-  state.items[index].total += unitPrice;
-  state.total += unitPrice;
+  // TODO we should be working with numbers, not Strings
+  state.items[index].quantity = (
+    Number(state.items[index].quantity) + 1
+  ).toString();
   return state;
 }
 
 export function decreaseItemCount(index, state) {
-  let unitPrice = parseFloat(state.items[index].unitPrice);
-
   if (state.items[index].quantity > 1) {
-    state.items[index].quantity -= 1;
-    state.items[index].total -= unitPrice;
-    state.total -= unitPrice;
+    // TODO we should be working with numbers, not Strings
+    state.items[index].quantity = (
+      Number(state.items[index].quantity) - 1
+    ).toString();
   }
   return state;
 }
 
 export function removeItem(index, state) {
-  let subTotal = state.items[index].total;
-
   state.items.splice(index, 1);
-  state.total -= subTotal;
 
   return state;
 }
