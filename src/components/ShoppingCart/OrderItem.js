@@ -39,7 +39,8 @@ class OrderItem extends Component {
           {this.props.item.quantity} x € {this.props.item.unitPrice}
         </ListGroupItemText>
         <ListGroupItemText>
-          Subtotal Item: € {this.total()}
+          Subtotal Item: €{' '}
+          {(this.props.item.quantity * this.props.item.unitPrice).toFixed(2)}
           <Button outline color="danger" onClick={this.remove.bind(this)}>
             Remove
           </Button>

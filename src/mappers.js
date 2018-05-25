@@ -25,7 +25,7 @@ export function parseProductJSON(data) {
     id: data.id,
     description: data.description,
     category: data.category,
-    price: Number(parseFloat(data.unitPrice).toFixed(2))
+    price: Number(parseFloat(data.price).toFixed(2))
   };
 }
 
