@@ -26,22 +26,39 @@ class OrderItem extends Component {
           <br />
         </ListGroupItemHeading>
         <ListGroupItemText>
-          <Button onClick={this.decrease.bind(this)} color="secondary">
+          <Button
+            onClick={this.decrease.bind(this)}
+            color="secondary"
+            size="sm"
+          >
             -
           </Button>{' '}
-          <Button onClick={this.increase.bind(this)} color="secondary">
+          <Button
+            onClick={this.increase.bind(this)}
+            color="secondary"
+            size="sm"
+          >
             +
           </Button>{' '}
-          {this.props.order.quantity} x € {this.props.order.product.price}
+          {this.props.order.quantity} x{' '}
+          <strong>€ {this.props.order.product.price}</strong>
         </ListGroupItemText>
-        <ListGroupItemText>
-          Subtotal Item: €{' '}
-          {this.props.order.quantity *
-            parseFloat(this.props.order.product.price)}{' '}
-          <Button outline color="danger" onClick={this.remove.bind(this)}>
+        <div>
+          Subtotal Item:{' '}
+          <strong>
+            €{' '}
+            {this.props.order.quantity *
+              parseFloat(this.props.order.product.price)}{' '}
+          </strong>
+          <Button
+            onClick={this.remove.bind(this)}
+            outline
+            color="danger"
+            size="sm"
+          >
             Remove
           </Button>
-        </ListGroupItemText>
+        </div>
       </ListGroupItem>
     );
   }
