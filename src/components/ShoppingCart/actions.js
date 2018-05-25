@@ -2,35 +2,34 @@ export function initState() {
   return {};
 }
 
-export function increaseItemCount(index, state) {
-  state.items[index].quantity = state.items[index].quantity + 1;
-  return state;
+export function increaseItemCount(index, order) {
+  order.items[index].quantity = order.items[index].quantity + 1;
+  return order;
 }
 
-export function decreaseItemCount(index, state) {
-  if (state.items[index].quantity > 1) {
-    state.items[index].quantity = state.items[index].quantity - 1;
+export function decreaseItemCount(index, order) {
+  if (order.items[index].quantity > 1) {
+    order.items[index].quantity = order.items[index].quantity - 1;
   }
-  return state;
+  return order;
 }
 
-export function removeItem(index, state) {
-  state.items.splice(index, 1);
+export function removeItem(index, order) {
+  order.items.splice(index, 1);
 
-  return state;
+  return order;
 }
 
-export function addItem(item, state) {
-  const duplicated = state.items.find(e => e.productId === item.id);
+export function addItem(item, order) {
+  const duplicated = order.items.find(e => e.productId === item.productId);
   if (!duplicated) {
-    state.items.push({
-      productId: item.id,
+    order.items.push({
+      productId: item.productId,
       quantity: 1,
-      unitPrice: item.price,
-      total: parseFloat(item.price)
+      unitPrice: item.unitPrice
     });
 
-    state.total += parseFloat(item.price);
+    order.total += parseFloat(item.price);
   }
-  return state;
+  return order;
 }

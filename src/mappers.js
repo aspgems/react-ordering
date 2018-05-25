@@ -20,4 +20,13 @@ export function parseOrderJSON(data) {
   };
 }
 
+export function parseProductJSON(data) {
+  return {
+    id: data.id,
+    description: data.description,
+    category: data.category,
+    price: Number(parseFloat(data.unitPrice).toFixed(2))
+  };
+}
+
 export default { product2orderItem, parseOrderJSON };

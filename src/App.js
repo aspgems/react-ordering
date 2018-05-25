@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
-import { product2orderItem, parseOrderJSON } from './mappers';
+import { product2orderItem, parseOrderJSON, parseProductJSON } from './mappers';
 import {
   ProductList,
   initState as initCatalogueState,
@@ -32,19 +32,25 @@ class App extends Component {
   }
 
   increase(index) {
-    this.setState(increaseItemCount(index, this.state.shoppingCart));
+    this.setState(
+      increaseItemCount(index, this.state[SHOPPING_CART_NAMESPACE])
+    );
   }
 
   decrease(index) {
-    this.setState(decreaseItemCount(index, this.state.shoppingCart));
+    this.setState(
+      decreaseItemCount(index, this.state[SHOPPING_CART_NAMESPACE])
+    );
   }
 
   remove(index) {
-    this.setState(removeItem(index, this.state.shoppingCart));
+    this.setState(removeItem(index, this.state[SHOPPING_CART_NAMESPACE]));
   }
 
   add(product) {
-    this.setState(addItem(product2orderItem(product)));
+    this.setState(
+      addItem(product2orderItem(product), this.state[SHOPPING_CART_NAMESPACE])
+    );
   }
 
   render() {
@@ -80,7 +86,11 @@ class App extends Component {
   componentDidMount() {
     fetch(CATALOGUE_API_HOST + PRODUCTS_QUERY)
       .then(response => response.json())
-      .then(data => this.setState({ [CATALOGUE_NAMESPACE]: data }))
+      .then(data =>
+        this.setState({
+          [CATALOGUE_NAMESPACE]: data.map(product => parseProductJSON(product))
+        })
+      )
       .catch(e => console.log(e));
 
     fetch(ORDER_API_HOST + orderPath(1))
