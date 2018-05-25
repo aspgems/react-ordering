@@ -1,4 +1,4 @@
-export const NAMESPACE = 'shoppingCart';
+export const NAMESPACE = 'order';
 // export const API_HOST = 'https://raw.githubusercontent.com';
 export const API_HOST = '';
 export function orderPath(id) {

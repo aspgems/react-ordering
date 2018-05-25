@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Summary from './Summary';
 import OrderItemList from './OrderItemList';
 
-class ShoppingCart extends Component {
+class Order extends Component {
   render() {
     if (Object.keys(this.props.order).length > 0) {
       return (
@@ -23,11 +23,11 @@ class ShoppingCart extends Component {
   }
 }
 
-ShoppingCart.propTypes = {
+Order.propTypes = {
   order: PropTypes.object.isRequired,
   removeCallback: PropTypes.func.isRequired,
   increaseCallback: PropTypes.func.isRequired,
   decreaseCallback: PropTypes.func.isRequired
 };
 
-export default ShoppingCart;
+export default Order;

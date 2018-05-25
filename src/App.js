@@ -11,7 +11,7 @@ import {
   DEFAULT_QUERY as PRODUCTS_QUERY
 } from './components/Catalogue/';
 import {
-  ShoppingCart,
+  Order,
   initState as initShoppingCartState,
   increaseItemCount,
   decreaseItemCount,
@@ -70,7 +70,7 @@ class App extends Component {
             </Col>
             <Col sm="12" md="4">
               <h2>Shopping Cart</h2>
-              <ShoppingCart
+              <Order
                 order={this.state[SHOPPING_CART_NAMESPACE]}
                 removeCallback={this.remove.bind(this)}
                 decreaseCallback={this.decrease.bind(this)}
