@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Summary from './Summary';
 import OrderItemList from './OrderItemList';
 
+import { Button } from 'reactstrap';
+
 class ShoppingCart extends Component {
   render() {
     return (
@@ -15,6 +17,7 @@ class ShoppingCart extends Component {
           decreaseCallback={this.props.decreaseCallback}
         />
         <Summary orders={this.props.shoppingCart} />
+        <Button color="primary">Buy</Button>
       </div>
     );
   }
