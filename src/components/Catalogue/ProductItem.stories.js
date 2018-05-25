@@ -3,13 +3,12 @@ import { storiesOf } from '@storybook/react';
 import ProductItem from './ProductItem';
 import 'bootstrap/dist/css/bootstrap.css';
 
+const product = {
+  id: 'ID',
+  description: 'Product name',
+  price: '35',
+  category: 'Category'
+};
 storiesOf('ProductItem', module).add('standard', () => (
-  <ProductItem
-    product={{
-      id: 'B103',
-      description: 'Switch with motion detector',
-      category: '2',
-      price: '12.95'
-    }}
-  />
+  <ProductItem product={product} />
 ));
