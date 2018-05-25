@@ -23,7 +23,7 @@ class ProductItem extends Component {
           <CardBody>
             <CardTitle>{this.props.product.description}</CardTitle>
             <CardSubtitle>{this.props.product.category}</CardSubtitle>
-            <CardText>{this.props.product.price}</CardText>
+            <CardText>€ {this.props.product.price}</CardText>
             <Button
               onClick={this.add.bind(this)}
               color="primary"
