@@ -36,3 +36,11 @@ export function addItem(item, order) {
   }
   return order;
 }
+
+export default {
+  initState,
+  increaseItemCount,
+  decreaseItemCount,
+  removeItem,
+  addItem
+};

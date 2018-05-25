@@ -12,12 +12,8 @@ import {
 } from './components/Catalogue/';
 import {
   Order,
-  initState as initShoppingCartState,
-  increaseItemCount,
-  decreaseItemCount,
-  removeItem,
+  actions as orderActions,
   NAMESPACE as SHOPPING_CART_NAMESPACE,
-  addItem,
   API_HOST as ORDER_API_HOST,
   orderPath
 } from './components/ShoppingCart/';
@@ -27,29 +23,34 @@ class App extends Component {
     super(props);
     this.state = {
       [CATALOGUE_NAMESPACE]: initCatalogueState(),
-      [SHOPPING_CART_NAMESPACE]: initShoppingCartState()
+      [SHOPPING_CART_NAMESPACE]: orderActions.initState()
     };
   }
 
   increase(index) {
     this.setState(
-      increaseItemCount(index, this.state[SHOPPING_CART_NAMESPACE])
+      orderActions.increaseItemCount(index, this.state[SHOPPING_CART_NAMESPACE])
     );
   }
 
   decrease(index) {
     this.setState(
-      decreaseItemCount(index, this.state[SHOPPING_CART_NAMESPACE])
+      orderActions.decreaseItemCount(index, this.state[SHOPPING_CART_NAMESPACE])
     );
   }
 
   remove(index) {
-    this.setState(removeItem(index, this.state[SHOPPING_CART_NAMESPACE]));
+    this.setState(
+      orderActions.removeItem(index, this.state[SHOPPING_CART_NAMESPACE])
+    );
   }
 
   add(product) {
     this.setState(
-      addItem(product2orderItem(product), this.state[SHOPPING_CART_NAMESPACE])
+      orderActions.addItem(
+        product2orderItem(product),
+        this.state[SHOPPING_CART_NAMESPACE]
+      )
     );
   }
 
