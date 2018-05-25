@@ -28,8 +28,6 @@ export function addItem(item, order) {
       quantity: 1,
       unitPrice: item.unitPrice
     });
-
-    order.total += parseFloat(item.price);
   }
   return order;
 }

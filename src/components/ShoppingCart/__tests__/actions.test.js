@@ -6,8 +6,8 @@ describe('initState', () => {
   });
 });
 
-describe('increaseItemCount(index, state)', () => {
-  const state = {
+describe('increaseItemCount(index, order)', () => {
+  const order = {
     id: 1,
     customerId: 1,
     items: [
@@ -18,7 +18,7 @@ describe('increaseItemCount(index, state)', () => {
   };
 
   test('increases by 1 the quantity property of the object in index', () => {
-    expect(actions.increaseItemCount(0, state)).toEqual({
+    expect(actions.increaseItemCount(0, order)).toEqual({
       id: 1,
       customerId: 1,
       items: [
@@ -30,8 +30,8 @@ describe('increaseItemCount(index, state)', () => {
   });
 });
 
-describe('decreaseItemCount(index, state)', () => {
-  const state = {
+describe('decreaseItemCount(index, order)', () => {
+  const order = {
     id: 1,
     customerId: 1,
     items: [
@@ -42,7 +42,7 @@ describe('decreaseItemCount(index, state)', () => {
   };
 
   test('decreases by 1 the quantity property of the object in index', () => {
-    expect(actions.decreaseItemCount(1, state)).toEqual({
+    expect(actions.decreaseItemCount(1, order)).toEqual({
       id: 1,
       customerId: 1,
       items: [
@@ -53,13 +53,13 @@ describe('decreaseItemCount(index, state)', () => {
     });
   });
 
-  test('when quantity is 0, it returns the same state', () => {
-    expect(actions.decreaseItemCount(0, state)).toEqual(state);
+  test('when quantity is 0, it returns the same order', () => {
+    expect(actions.decreaseItemCount(0, order)).toEqual(order);
   });
 });
 
-describe('removeItem(index, state)', () => {
-  const state = {
+describe('removeItem(index, order)', () => {
+  const order = {
     id: 1,
     customerId: 1,
     items: [
@@ -70,7 +70,7 @@ describe('removeItem(index, state)', () => {
   };
 
   test('removes the item in index', () => {
-    expect(actions.removeItem(0, state)).toEqual({
+    expect(actions.removeItem(0, order)).toEqual({
       id: 1,
       customerId: 1,
       items: [{ quantity: 2, unitPrice: '0', total: 0 }],
@@ -79,30 +79,41 @@ describe('removeItem(index, state)', () => {
   });
 });
 
-describe('addItem(item, state)', () => {
-  const existingProduct = { id: 1, price: '0' },
-    state = {
-      id: 1,
-      customerId: 1,
-      items: [{ productId: 1, quantity: 1, unitPrice: '0', total: 0 }],
-      total: 0
-    };
+describe('addItem(item, order)', () => {
+  const existingProduct = {
+    productId: 1,
+    unitPrice: 10
+  };
+  const order = {
+    items: [
+      {
+        ...existingProduct,
+        quantity: 1
+      }
+    ]
+  };
 
-  test('adds the new item if it does not exist in state', () => {
-    const newProduct = { id: 2, price: '0' };
-    const expectedState = {
-      id: 1,
-      customerId: 1,
-      items: [
-        { productId: 1, quantity: 1, unitPrice: '0', total: 0 },
-        { productId: 2, quantity: 1, unitPrice: '0', total: 0 }
-      ],
-      total: 0
+  test('adds the new item if it does not exist', () => {
+    const newProduct = {
+      productId: 2,
+      unitPrice: 20
     };
-    expect(actions.addItem(newProduct, state)).toEqual(expectedState);
+    const expectedOrder = {
+      items: [
+        {
+          ...existingProduct,
+          quantity: 1
+        },
+        {
+          ...newProduct,
+          quantity: 1
+        }
+      ]
+    };
+    expect(actions.addItem(newProduct, order)).toEqual(expectedOrder);
   });
 
-  test('it does change the state if the new product already exists', () => {
-    expect(actions.addItem(existingProduct, state)).toEqual(state);
+  test('it does change the order if the new product already exists', () => {
+    expect(actions.addItem(existingProduct, order)).toEqual(order);
   });
 });
