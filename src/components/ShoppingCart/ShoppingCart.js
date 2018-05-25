@@ -14,7 +14,7 @@ class ShoppingCart extends Component {
           increaseCallback={this.props.increaseCallback}
           decreaseCallback={this.props.decreaseCallback}
         />
-        <Summary items={this.props.order.items} />
+        <Summary order={this.props.order} />
       </div>
     );
   }
