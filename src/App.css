@@ -26,6 +26,9 @@
   margin-bottom: 30px;
   text-align: center;
 }
+li.list-group-item:last-child {
+  margin-bottom: 30px;
+}
 
 @keyframes App-logo-spin {
   from {
