@@ -7,11 +7,11 @@ class OrderItemList extends Component {
   render() {
     return (
       <ListGroup>
-        {this.props.orders.map((order, index) => {
+        {this.props.items.map((item, index) => {
           return (
             <OrderItem
               key={index}
-              order={order}
+              item={item}
               index={index}
               removeCallback={this.props.removeCallback}
               increaseCallback={this.props.increaseCallback}
@@ -25,7 +25,7 @@ class OrderItemList extends Component {
 }
 
 OrderItemList.propTypes = {
-  orders: PropTypes.array.isRequired,
+  items: PropTypes.array.isRequired,
   removeCallback: PropTypes.func.isRequired,
   increaseCallback: PropTypes.func.isRequired,
   decreaseCallback: PropTypes.func.isRequired

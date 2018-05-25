@@ -1,53 +1,119 @@
 import * as actions from '../actions';
 
 describe('initState', () => {
-  test('returns an empty array', () => {
-    expect(actions.initState()).toEqual([]);
+  test('returns an empty object', () => {
+    expect(actions.initState()).toEqual({});
   });
 });
 
-describe('increaseItemCount(index, state)', () => {
-  const state = [{ quantity: 1 }, { quantity: 2 }];
+describe('increaseItemCount(index, order)', () => {
+  const order = {
+    id: 1,
+    customerId: 1,
+    items: [
+      { quantity: 1, unitPrice: '0', total: 0 },
+      { quantity: 2, unitPrice: '0', total: 0 }
+    ],
+    total: 0
+  };
+
   test('increases by 1 the quantity property of the object in index', () => {
-    expect(actions.increaseItemCount(0, state)).toEqual([
-      { quantity: 2 },
-      { quantity: 2 }
-    ]);
+    expect(actions.increaseItemCount(0, order)).toEqual({
+      id: 1,
+      customerId: 1,
+      items: [
+        { quantity: 2, unitPrice: '0', total: 0 },
+        { quantity: 2, unitPrice: '0', total: 0 }
+      ],
+      total: 0
+    });
   });
 });
 
-describe('decreaseItemCount(index, state)', () => {
-  const state = [{ quantity: 1 }, { quantity: 2 }];
+describe('decreaseItemCount(index, order)', () => {
+  const order = {
+    id: 1,
+    customerId: 1,
+    items: [
+      { quantity: 1, unitPrice: '0', total: 0 },
+      { quantity: 2, unitPrice: '0', total: 0 }
+    ],
+    total: 0
+  };
+
   test('decreases by 1 the quantity property of the object in index', () => {
-    expect(actions.decreaseItemCount(1, state)).toEqual([
-      { quantity: 1 },
-      { quantity: 1 }
-    ]);
+    expect(actions.decreaseItemCount(1, order)).toEqual({
+      id: 1,
+      customerId: 1,
+      items: [
+        { quantity: 1, unitPrice: '0', total: 0 },
+        { quantity: 1, unitPrice: '0', total: 0 }
+      ],
+      total: 0
+    });
   });
-  test('when quantity is 0, it returns the same state', () => {
-    expect(actions.decreaseItemCount(0, state)).toEqual(state);
+
+  test('when quantity is 0, it returns the same order', () => {
+    expect(actions.decreaseItemCount(0, order)).toEqual(order);
   });
 });
 
-describe('removeItem(index, state)', () => {
-  const state = [1, 2];
+describe('removeItem(index, order)', () => {
+  const order = {
+    id: 1,
+    customerId: 1,
+    items: [
+      { quantity: 1, unitPrice: '0', total: 0 },
+      { quantity: 2, unitPrice: '0', total: 0 }
+    ],
+    total: 0
+  };
+
   test('removes the item in index', () => {
-    expect(actions.removeItem(0, state)).toEqual([2]);
+    expect(actions.removeItem(0, order)).toEqual({
+      id: 1,
+      customerId: 1,
+      items: [{ quantity: 2, unitPrice: '0', total: 0 }],
+      total: 0
+    });
   });
 });
 
-describe('addItem(item, state)', () => {
-  const existingProduct = { id: 1 };
-  const state = [{ product: existingProduct, quantity: 1 }];
-  test('adds the new item if it does not exist in state', () => {
-    const newProduct = { id: 2 };
-    const expectedState = [
-      { product: existingProduct, quantity: 1 },
-      { product: newProduct, quantity: 1 }
-    ];
-    expect(actions.addItem(newProduct, state)).toEqual(expectedState);
+describe('addItem(item, order)', () => {
+  const existingProduct = {
+    productId: 1,
+    unitPrice: 10
+  };
+  const order = {
+    items: [
+      {
+        ...existingProduct,
+        quantity: 1
+      }
+    ]
+  };
+
+  test('adds the new item if it does not exist', () => {
+    const newProduct = {
+      productId: 2,
+      unitPrice: 20
+    };
+    const expectedOrder = {
+      items: [
+        {
+          ...existingProduct,
+          quantity: 1
+        },
+        {
+          ...newProduct,
+          quantity: 1
+        }
+      ]
+    };
+    expect(actions.addItem(newProduct, order)).toEqual(expectedOrder);
   });
-  test('it does change the state if the new product already exists', () => {
-    expect(actions.addItem(existingProduct, state)).toEqual(state);
+
+  test('it does change the order if the new product already exists', () => {
+    expect(actions.addItem(existingProduct, order)).toEqual(order);
   });
 });

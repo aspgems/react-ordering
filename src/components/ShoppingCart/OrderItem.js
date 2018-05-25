@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { OrderPropType } from './PropTypes';
 import { ListGroupItemHeading, ListGroupItemText, Button } from 'reactstrap';
 import { ListGroupItem } from 'reactstrap';
 import './OrderItem.css';
@@ -18,11 +17,16 @@ class OrderItem extends Component {
     this.props.removeCallback(this.props.index);
   }
 
+  total() {
+    (this.props.item.quantity * this.props.item.unitPrice).toFixed(2);
+  }
+
   render() {
     return (
       <ListGroupItem>
         <ListGroupItemHeading>
-          {this.props.order.product.description}
+          {this.props.item.productId}{' '}
+          {/* here comes the name or the description of the product */}
           <br />
         </ListGroupItemHeading>
         <ListGroupItemText>
@@ -32,12 +36,11 @@ class OrderItem extends Component {
           <Button onClick={this.increase.bind(this)} color="secondary">
             +
           </Button>{' '}
-          {this.props.order.quantity} x € {this.props.order.product.price}
+          {this.props.item.quantity} x € {this.props.item.unitPrice}
         </ListGroupItemText>
         <ListGroupItemText>
           Subtotal Item: €{' '}
-          {this.props.order.quantity *
-            parseFloat(this.props.order.product.price)}{' '}
+          {(this.props.item.quantity * this.props.item.unitPrice).toFixed(2)}
           <Button outline color="danger" onClick={this.remove.bind(this)}>
             Remove
           </Button>
@@ -48,7 +51,11 @@ class OrderItem extends Component {
 }
 
 OrderItem.propTypes = {
-  order: OrderPropType,
+  item: PropTypes.shape({
+    productId: PropTypes.string.isRequired,
+    unitPrice: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired
+  }),
   increaseCallback: PropTypes.func.isRequired,
   decreaseCallback: PropTypes.func.isRequired,
   removeCallback: PropTypes.func.isRequired,

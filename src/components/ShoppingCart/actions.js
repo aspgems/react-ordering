@@ -1,31 +1,33 @@
 export function initState() {
-  return [];
+  return {};
 }
 
-export function increaseItemCount(index, state) {
-  state[index].quantity += 1;
-  return state;
+export function increaseItemCount(index, order) {
+  order.items[index].quantity = order.items[index].quantity + 1;
+  return order;
 }
 
-export function decreaseItemCount(index, state) {
-  if (state[index].quantity > 0) {
-    state[index].quantity -= 1;
+export function decreaseItemCount(index, order) {
+  if (order.items[index].quantity > 1) {
+    order.items[index].quantity = order.items[index].quantity - 1;
   }
-  return state;
+  return order;
 }
 
-export function removeItem(index, state) {
-  state.splice(index, 1);
-  return state;
+export function removeItem(index, order) {
+  order.items.splice(index, 1);
+
+  return order;
 }
 
-export function addItem(item, state) {
-  const duplicated = state.find(e => e.product.id === item.id);
+export function addItem(item, order) {
+  const duplicated = order.items.find(e => e.productId === item.productId);
   if (!duplicated) {
-    state.push({
-      product: item,
-      quantity: 1
+    order.items.push({
+      productId: item.productId,
+      quantity: 1,
+      unitPrice: item.unitPrice
     });
   }
-  return state;
+  return order;
 }

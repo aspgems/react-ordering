@@ -5,23 +5,26 @@ import OrderItemList from './OrderItemList';
 
 class ShoppingCart extends Component {
   render() {
-    return (
-      <div>
-        <h2>Shopping Cart</h2>
-        <OrderItemList
-          orders={this.props.shoppingCart}
-          removeCallback={this.props.removeCallback}
-          increaseCallback={this.props.increaseCallback}
-          decreaseCallback={this.props.decreaseCallback}
-        />
-        <Summary orders={this.props.shoppingCart} />
-      </div>
-    );
+    if (Object.keys(this.props.order).length > 0) {
+      return (
+        <div>
+          <OrderItemList
+            items={this.props.order.items}
+            removeCallback={this.props.removeCallback}
+            increaseCallback={this.props.increaseCallback}
+            decreaseCallback={this.props.decreaseCallback}
+          />
+          <Summary items={this.props.order.items} />
+        </div>
+      );
+    } else {
+      return <div>Empty</div>;
+    }
   }
 }
 
 ShoppingCart.propTypes = {
-  shoppingCart: PropTypes.array.isRequired,
+  order: PropTypes.object.isRequired,
   removeCallback: PropTypes.func.isRequired,
   increaseCallback: PropTypes.func.isRequired,
   decreaseCallback: PropTypes.func.isRequired
