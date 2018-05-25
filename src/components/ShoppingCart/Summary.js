@@ -11,7 +11,11 @@ class Summary extends Component {
       return total;
     });
 
-    return <Alert color="dark">Total: € {total}</Alert>;
+    return (
+      <Alert color="dark">
+        Total: <strong>€ {total}</strong>
+      </Alert>
+    );
   }
 }
 
