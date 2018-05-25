@@ -10,6 +10,7 @@ import {
   CardSubtitle,
   Button
 } from 'reactstrap';
+import './ProductItem.css';
 
 class ProductItem extends Component {
   add() {
