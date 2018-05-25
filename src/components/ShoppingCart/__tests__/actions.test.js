@@ -1,10 +1,8 @@
 import * as actions from '../actions';
 
 describe('initState', () => {
-  test('returns an empty array', () => {
-    expect(actions.initState().hasOwnProperty('id')).toBe(true);
-    expect(actions.initState().hasOwnProperty('customerId')).toBe(true);
-    expect(actions.initState().hasOwnProperty('items')).toBe(true);
+  test('returns an empty object', () => {
+    expect(actions.initState()).toEqual({});
   });
 });
 

@@ -1,17 +1,5 @@
 export function initState() {
-  return {
-    id: '1',
-    customerId: '1',
-    items: [
-      {
-        productId: 'B102',
-        quantity: 10,
-        unitPrice: '4.99',
-        total: 49.9
-      }
-    ],
-    total: 49.9
-  };
+  return {};
 }
 
 export function increaseItemCount(index, state) {

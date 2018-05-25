@@ -16,7 +16,9 @@ import {
   decreaseItemCount,
   removeItem,
   NAMESPACE as SHOPPING_CART_NAMESPACE,
-  addItem
+  addItem,
+  API_HOST as ORDER_API_HOST,
+  orderPath
 } from './components/ShoppingCart/';
 
 class App extends Component {
@@ -60,6 +62,7 @@ class App extends Component {
               />
             </Col>
             <Col sm="12" md="4">
+              <h2>Shopping Cart</h2>
               <ShoppingCart
                 order={this.state[SHOPPING_CART_NAMESPACE]}
                 removeCallback={this.remove.bind(this)}
@@ -77,6 +80,11 @@ class App extends Component {
     fetch(CATALOGUE_API_HOST + PRODUCTS_QUERY)
       .then(response => response.json())
       .then(data => this.setState({ [CATALOGUE_NAMESPACE]: data }))
+      .catch(e => console.log(e));
+
+    fetch(ORDER_API_HOST + orderPath(1))
+      .then(response => response.json())
+      .then(data => this.setState({ [SHOPPING_CART_NAMESPACE]: data }))
       .catch(e => console.log(e));
   }
 }
