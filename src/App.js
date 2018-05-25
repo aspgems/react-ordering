@@ -61,7 +61,7 @@ class App extends Component {
             </Col>
             <Col sm="12" md="4">
               <ShoppingCart
-                shoppingCart={this.state[SHOPPING_CART_NAMESPACE]}
+                order={this.state[SHOPPING_CART_NAMESPACE]}
                 removeCallback={this.remove.bind(this)}
                 decreaseCallback={this.decrease.bind(this)}
                 increaseCallback={this.increase.bind(this)}

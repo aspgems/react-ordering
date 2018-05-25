@@ -9,19 +9,23 @@ class ShoppingCart extends Component {
       <div>
         <h2>Shopping Cart</h2>
         <OrderItemList
-          orders={this.props.shoppingCart}
+          items={this.props.order.items}
           removeCallback={this.props.removeCallback}
           increaseCallback={this.props.increaseCallback}
           decreaseCallback={this.props.decreaseCallback}
         />
-        <Summary orders={this.props.shoppingCart} />
+        <Summary items={this.props.order.items} />
       </div>
     );
   }
 }
 
 ShoppingCart.propTypes = {
-  shoppingCart: PropTypes.array.isRequired,
+  order: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    customerId: PropTypes.string,
+    items: PropTypes.array.isRequired
+  }).isRequired,
   removeCallback: PropTypes.func.isRequired,
   increaseCallback: PropTypes.func.isRequired,
   decreaseCallback: PropTypes.func.isRequired

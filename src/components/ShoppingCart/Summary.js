@@ -6,17 +6,19 @@ class Summary extends Component {
   render() {
     let total = 0;
 
-    this.props.orders.map(o => {
-      total += o.quantity * parseFloat(o.product.price);
+    this.props.items.map(item => {
+      total += (
+        Number(item.quantity) * Number(parseFloat(item.unitPrice))
+      ).toFixed(2);
       return total;
     });
 
-    return <Alert color="dark">Total: € {total}</Alert>;
+    return <Alert color="dark">Total: € {Number(total).toFixed(2)}</Alert>;
   }
 }
 
 Summary.propTypes = {
-  orders: PropTypes.array.isRequired
+  items: PropTypes.array.isRequired
 };
 
 export default Summary;
