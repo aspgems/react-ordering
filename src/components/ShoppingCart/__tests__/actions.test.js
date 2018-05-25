@@ -1,8 +1,11 @@
 import * as actions from '../actions';
 
 describe('initState', () => {
-  test('returns an empty object', () => {
-    expect(actions.initState()).toEqual({});
+  test('returns our empty state', () => {
+    expect(actions.initState().id).toBe(null);
+    expect(actions.initState().customerId).toBe(null);
+    expect(actions.initState().items).toEqual([]);
+    expect(actions.initState().total).toBe(0);
   });
 });
 

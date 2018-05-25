@@ -1,5 +1,10 @@
 export function initState() {
-  return {};
+  return {
+    id: null,
+    customerId: null,
+    items: [],
+    total: 0
+  };
 }
 
 export function increaseItemCount(index, order) {
