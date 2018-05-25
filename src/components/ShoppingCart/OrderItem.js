@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { OrderPropType } from './PropTypes';
 import { ListGroupItemHeading, ListGroupItemText, Button } from 'reactstrap';
 import { ListGroupItem } from 'reactstrap';
-import './OrderItem.css';
 
 class OrderItem extends Component {
   increase() {
