@@ -5,10 +5,8 @@ import './App.css';
 import { product2orderItem, parseOrderJSON, parseProductJSON } from './mappers';
 import {
   ProductList,
-  initState as initCatalogueState,
-  NAMESPACE as CATALOGUE_NAMESPACE,
-  API_HOST as CATALOGUE_API_HOST,
-  DEFAULT_QUERY as PRODUCTS_QUERY
+  actions as productsActions,
+  config as productsConfig
 } from './components/Catalogue/';
 import {
   Order,
@@ -20,7 +18,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      [CATALOGUE_NAMESPACE]: initCatalogueState(),
+      [productsConfig.NAMESPACE]: productsActions.initState(),
       [orderConfig.NAMESPACE]: orderActions.initState()
     };
   }
@@ -63,7 +61,7 @@ class App extends Component {
           <Row>
             <Col sm="12" md="8">
               <ProductList
-                products={this.state[CATALOGUE_NAMESPACE]}
+                products={this.state[productsConfig.NAMESPACE]}
                 addCallback={this.add.bind(this)}
               />
             </Col>
@@ -83,11 +81,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(CATALOGUE_API_HOST + PRODUCTS_QUERY)
+    fetch(productsConfig.API_HOST + productsConfig.PRODUCTS_PATH)
       .then(response => response.json())
       .then(data =>
         this.setState({
-          [CATALOGUE_NAMESPACE]: data.map(product => parseProductJSON(product))
+          [productsConfig.NAMESPACE]: data.map(product =>
+            parseProductJSON(product)
+          )
         })
       )
       .catch(e => console.log(e));
