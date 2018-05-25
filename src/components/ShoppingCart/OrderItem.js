@@ -17,6 +17,10 @@ class OrderItem extends Component {
     this.props.removeCallback(this.props.index);
   }
 
+  total() {
+    (this.props.item.quantity * this.props.item.unitPrice).toFixed(2);
+  }
+
   render() {
     return (
       <ListGroupItem>
@@ -35,11 +39,7 @@ class OrderItem extends Component {
           {this.props.item.quantity} x € {this.props.item.unitPrice}
         </ListGroupItemText>
         <ListGroupItemText>
-          Subtotal Item: €{' '}
-          {(
-            Number(this.props.item.quantity) *
-            Number(parseFloat(this.props.item.unitPrice))
-          ).toFixed(2)}{' '}
+          Subtotal Item: € {this.total()}
           <Button outline color="danger" onClick={this.remove.bind(this)}>
             Remove
           </Button>
@@ -51,9 +51,9 @@ class OrderItem extends Component {
 
 OrderItem.propTypes = {
   item: PropTypes.shape({
-    productId: PropTypes.isRequired,
-    unitPrice: PropTypes.string.isRequired,
-    quantity: PropTypes.string.isRequired
+    productId: PropTypes.string.isRequired,
+    unitPrice: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired
   }),
   increaseCallback: PropTypes.func.isRequired,
   decreaseCallback: PropTypes.func.isRequired,

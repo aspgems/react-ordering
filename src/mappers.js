@@ -6,4 +6,18 @@ export function product2orderItem(product) {
   };
 }
 
-export default { product2orderItem };
+export function parseOrderJSON(data) {
+  return {
+    id: Number(data.id),
+    customerId: Number(data.id),
+    items: data.items.map(function(item) {
+      return {
+        productId: item.productId,
+        quantity: Number(item.quantity),
+        unitPrice: Number(parseFloat(item.unitPrice).toFixed(2))
+      };
+    })
+  };
+}
+
+export default { product2orderItem, parseOrderJSON };

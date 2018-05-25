@@ -3,19 +3,13 @@ export function initState() {
 }
 
 export function increaseItemCount(index, state) {
-  // TODO we should be working with numbers, not Strings
-  state.items[index].quantity = (
-    Number(state.items[index].quantity) + 1
-  ).toString();
+  state.items[index].quantity = state.items[index].quantity + 1;
   return state;
 }
 
 export function decreaseItemCount(index, state) {
   if (state.items[index].quantity > 1) {
-    // TODO we should be working with numbers, not Strings
-    state.items[index].quantity = (
-      Number(state.items[index].quantity) - 1
-    ).toString();
+    state.items[index].quantity = state.items[index].quantity - 1;
   }
   return state;
 }

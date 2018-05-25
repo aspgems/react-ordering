@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
-import product2orderItem from './mappers';
+import { product2orderItem, parseOrderJSON } from './mappers';
 import {
   ProductList,
   initState as initCatalogueState,
@@ -85,7 +85,9 @@ class App extends Component {
 
     fetch(ORDER_API_HOST + orderPath(1))
       .then(response => response.json())
-      .then(data => this.setState({ [SHOPPING_CART_NAMESPACE]: data }))
+      .then(data =>
+        this.setState({ [SHOPPING_CART_NAMESPACE]: parseOrderJSON(data) })
+      )
       .catch(e => console.log(e));
   }
 }
