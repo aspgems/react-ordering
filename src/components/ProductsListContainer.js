@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import config from './config';
+import config from './productsConfig';
 import PropTypes from 'prop-types';
 import ProductItem from './ProductItem';
 
@@ -31,7 +31,7 @@ class ProductsListContainer extends Component {
   }
 
   componentDidMount() {
-    fetch(config.API_HOST + config.PRODUCTS_PATH)
+    fetch(config.api.host + config.api.productsPath)
       .then(response => response.json())
       .then(data =>
         this.setState({

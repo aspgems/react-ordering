@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
-import { ProductsListContainer } from './components/Catalogue';
-import { OrderContainer } from './components/ShoppingCart/';
+import ProductsListContainer from './components/ProductsListContainer';
+import OrderContainer from './components/OrderContainer';
 
 class App extends Component {
   render() {

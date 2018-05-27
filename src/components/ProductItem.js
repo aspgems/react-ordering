@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ProductPropType } from './PropTypes';
 
 import {
   Card,
@@ -37,7 +36,12 @@ class ProductItem extends Component {
 
 ProductItem.propTypes = {
   addToCartHandler: PropTypes.func.isRequired,
-  product: ProductPropType
+  product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    price: PropTypes.number.isRequired,
+    category: PropTypes.string
+  }).isRequired
 };
 
 export default ProductItem;
