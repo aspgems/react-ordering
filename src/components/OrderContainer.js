@@ -9,6 +9,44 @@ import {
 } from 'reactstrap';
 import config from './orderConfig';
 
+const calculateOrderTotal = items => {
+  return items.reduce((acc, item) => {
+    return acc + item.total;
+  }, 0);
+};
+const calulateItemTotal = item => {
+  return Number(parseFloat(item.quantity * item.unitPrice).toFixed(2));
+};
+const buildItem = item => {
+  return {
+    productId: item.productId,
+    quantity: item.quantity,
+    unitPrice: item.unitPrice,
+    total: calulateItemTotal(item)
+  };
+};
+const itemsIncrease = (items, productId) => {
+  return items.map(item => {
+    if (item.productId === productId) {
+      return buildItem({ ...item, quantity: item.quantity + 1 });
+    }
+
+    return buildItem({ ...item });
+  });
+};
+
+const increaseItem = productId => {
+  return prevState => {
+    const items = itemsIncrease(prevState.items, productId);
+    return {
+      id: prevState.id,
+      customerId: prevState.customerId,
+      items: items,
+      total: calculateOrderTotal(items)
+    };
+  };
+};
+
 class OrderContainer extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +56,10 @@ class OrderContainer extends Component {
       items: [],
       total: 0
     };
+  }
+
+  increaseItemHandler(productId) {
+    this.setState(increaseItem(productId));
   }
 
   render() {
@@ -39,7 +81,9 @@ class OrderContainer extends Component {
                       -
                     </Button>{' '}
                     <Button
-                      onClick={() => console.log('increase')}
+                      onClick={() => {
+                        this.increaseItemHandler(item.productId);
+                      }}
                       color="secondary"
                     >
                       +
