@@ -44,6 +44,10 @@ const itemsDecrease = (items, productId) => {
   });
 };
 
+const itemsRemove = (items, productId) => {
+  return items.filter(item => item.productId !== productId);
+};
+
 const increaseItem = productId => {
   return prevState => {
     const items = itemsIncrease(prevState.items, productId);
@@ -59,6 +63,18 @@ const increaseItem = productId => {
 const decreaseItem = productId => {
   return prevState => {
     const items = itemsDecrease(prevState.items, productId);
+    return {
+      id: prevState.id,
+      customerId: prevState.customerId,
+      items: items,
+      total: calculateOrderTotal(items)
+    };
+  };
+};
+
+const removeItem = productId => {
+  return prevState => {
+    const items = itemsRemove(prevState.items, productId);
     return {
       id: prevState.id,
       customerId: prevState.customerId,
@@ -87,6 +103,9 @@ class OrderContainer extends Component {
     this.setState(decreaseItem(productId));
   }
 
+  removeItemHandler(productId) {
+    this.setState(removeItem(productId));
+  }
   render() {
     if (this.state.items.length > 0) {
       return (
@@ -121,9 +140,7 @@ class OrderContainer extends Component {
                     <Button
                       outline
                       color="danger"
-                      onClick={() => {
-                        console.log('remove');
-                      }}
+                      onClick={() => this.removeItemHandler(item.productId)}
                     >
                       Remove
                     </Button>
