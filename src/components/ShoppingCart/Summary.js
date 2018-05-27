@@ -17,7 +17,7 @@ class Summary extends Component {
 }
 
 Summary.propTypes = {
-  items: PropTypes.array.isRequired
+  total: PropTypes.number.isRequired
 };
 
 export default Summary;
