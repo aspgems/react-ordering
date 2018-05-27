@@ -34,10 +34,31 @@ const itemsIncrease = (items, productId) => {
     return buildItem({ ...item });
   });
 };
+const itemsDecrease = (items, productId) => {
+  return items.map(item => {
+    if (item.productId === productId && item.quantity > 0) {
+      return buildItem({ ...item, quantity: item.quantity - 1 });
+    }
+
+    return buildItem({ ...item });
+  });
+};
 
 const increaseItem = productId => {
   return prevState => {
     const items = itemsIncrease(prevState.items, productId);
+    return {
+      id: prevState.id,
+      customerId: prevState.customerId,
+      items: items,
+      total: calculateOrderTotal(items)
+    };
+  };
+};
+
+const decreaseItem = productId => {
+  return prevState => {
+    const items = itemsDecrease(prevState.items, productId);
     return {
       id: prevState.id,
       customerId: prevState.customerId,
@@ -62,6 +83,10 @@ class OrderContainer extends Component {
     this.setState(increaseItem(productId));
   }
 
+  decreaseItemHandler(productId) {
+    this.setState(decreaseItem(productId));
+  }
+
   render() {
     if (this.state.items.length > 0) {
       return (
@@ -75,7 +100,7 @@ class OrderContainer extends Component {
                   </ListGroupItemHeading>
                   <ListGroupItemText>
                     <Button
-                      onClick={() => console.log('decrease')}
+                      onClick={() => this.decreaseItemHandler(item.productId)}
                       color="secondary"
                     >
                       -
@@ -96,7 +121,9 @@ class OrderContainer extends Component {
                     <Button
                       outline
                       color="danger"
-                      onClick={() => console.log('remove')}
+                      onClick={() => {
+                        console.log('remove');
+                      }}
                     >
                       Remove
                     </Button>
