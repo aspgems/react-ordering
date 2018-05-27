@@ -13,112 +13,8 @@ import {
 import ProductItem from './components/ProductItem';
 import logo from './logo.svg';
 import './App.css';
-
-// config
-const config = {
-  order: {
-    api: {
-      host: '',
-      orderPath: id => {
-        return '/data/orders/' + id + '.json';
-      }
-    }
-  },
-  products: {
-    api: {
-      host: 'https://raw.githubusercontent.com',
-      productsPath: '/aspgems/react-ordering/master/public/data/products.json'
-    }
-  }
-};
-
-// selectors
-const calculateOrderTotal = items => {
-  return items.reduce((acc, item) => {
-    return acc + item.total;
-  }, 0);
-};
-const calulateItemTotal = item => {
-  return Number(parseFloat(item.quantity * item.unitPrice).toFixed(2));
-};
-
-// mutations
-const buildItem = item => {
-  return {
-    productId: item.productId,
-    quantity: item.quantity,
-    unitPrice: item.unitPrice,
-    total: calulateItemTotal(item)
-  };
-};
-const itemsIncrease = (items, productId) => {
-  return items.map(item => {
-    if (item.productId === productId) {
-      return buildItem({ ...item, quantity: item.quantity + 1 });
-    }
-
-    return buildItem({ ...item });
-  });
-};
-const itemsDecrease = (items, productId) => {
-  return items.map(item => {
-    if (item.productId === productId && item.quantity > 0) {
-      return buildItem({ ...item, quantity: item.quantity - 1 });
-    }
-
-    return buildItem({ ...item });
-  });
-};
-
-const itemsRemove = (items, productId) => {
-  return items.filter(item => item.productId !== productId);
-};
-
-// actions
-const increaseItem = productId => {
-  return state => {
-    const prevState = state.order;
-    const items = itemsIncrease(prevState.items, productId);
-    return {
-      order: {
-        id: prevState.id,
-        customerId: prevState.customerId,
-        items: items,
-        total: calculateOrderTotal(items)
-      }
-    };
-  };
-};
-
-const decreaseItem = productId => {
-  return state => {
-    const prevState = state.order;
-    const items = itemsDecrease(prevState.items, productId);
-    return {
-      order: {
-        id: prevState.id,
-        customerId: prevState.customerId,
-        items: items,
-        total: calculateOrderTotal(items)
-      }
-    };
-  };
-};
-
-const removeItem = productId => {
-  return state => {
-    const prevState = state.order;
-    const items = itemsRemove(prevState.items, productId);
-    return {
-      order: {
-        id: prevState.id,
-        customerId: prevState.customerId,
-        items: items,
-        total: calculateOrderTotal(items)
-      }
-    };
-  };
-};
+import actions from './state';
+import config from './config';
 
 class App extends Component {
   constructor(props) {
@@ -135,15 +31,15 @@ class App extends Component {
   }
 
   increaseItemHandler(productId) {
-    this.setState(increaseItem(productId));
+    this.setState(actions.increaseItem(productId));
   }
 
   decreaseItemHandler(productId) {
-    this.setState(decreaseItem(productId));
+    this.setState(actions.decreaseItem(productId));
   }
 
   removeItemHandler(productId) {
-    this.setState(removeItem(productId));
+    this.setState(actions.removeItem(productId));
   }
 
   componentDidMount() {
