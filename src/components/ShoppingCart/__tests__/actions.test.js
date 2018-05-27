@@ -9,26 +9,26 @@ describe('initState', () => {
   });
 });
 
-describe('increaseItemCount(index, order)', () => {
-  const order = {
+describe('increaseItemCount', () => {
+  const state = {
     id: 1,
     customerId: 1,
     items: [
-      { quantity: 1, unitPrice: '0', total: 0 },
-      { quantity: 2, unitPrice: '0', total: 0 }
+      { productId: 1, quantity: 1, unitPrice: 10, total: 10 },
+      { productId: 2, quantity: 2, unitPrice: 20, total: 40 }
     ],
-    total: 0
+    total: 50
   };
 
   test('increases by 1 the quantity property of the object in index', () => {
-    expect(actions.increaseItemCount(0, order)).toEqual({
+    expect(actions.increaseItemCount(1, state)).toEqual({
       id: 1,
       customerId: 1,
       items: [
-        { quantity: 2, unitPrice: '0', total: 0 },
-        { quantity: 2, unitPrice: '0', total: 0 }
+        { productId: 1, quantity: 2, unitPrice: 10, total: 20 },
+        { productId: 2, quantity: 2, unitPrice: 20, total: 40 }
       ],
-      total: 0
+      total: 60
     });
   });
 });

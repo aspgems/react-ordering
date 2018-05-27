@@ -8,12 +8,7 @@ class Order extends Component {
     if (Object.keys(this.props.order).length > 0) {
       return (
         <div>
-          <OrderItemList
-            items={this.props.order.items}
-            removeCallback={this.props.removeCallback}
-            increaseCallback={this.props.increaseCallback}
-            decreaseCallback={this.props.decreaseCallback}
-          />
+          <OrderItemList items={this.props.order.items} />
           <Summary items={this.props.order.items} />
         </div>
       );
@@ -24,10 +19,7 @@ class Order extends Component {
 }
 
 Order.propTypes = {
-  order: PropTypes.object.isRequired,
-  removeCallback: PropTypes.func.isRequired,
-  increaseCallback: PropTypes.func.isRequired,
-  decreaseCallback: PropTypes.func.isRequired
+  order: PropTypes.object.isRequired
 };
 
 export default Order;

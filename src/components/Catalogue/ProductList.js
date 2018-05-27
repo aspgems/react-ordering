@@ -13,7 +13,7 @@ class ProductList extends Component {
               <ProductItem
                 key={p.id}
                 product={p}
-                addCallback={this.props.addCallback}
+                addToCartHandler={this.props.addToCartHandler}
               />
             );
           })}
@@ -25,7 +25,7 @@ class ProductList extends Component {
 
 ProductList.propTypes = {
   products: PropTypes.array.isRequired,
-  addCallback: PropTypes.func.isRequired
+  addToCartHandler: PropTypes.func.isRequired
 };
 
 export default ProductList;

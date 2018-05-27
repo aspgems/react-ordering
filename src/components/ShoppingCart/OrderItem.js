@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { ListGroupItemHeading, ListGroupItemText, Button } from 'reactstrap';
 import { ListGroupItem } from 'reactstrap';
 import './OrderItem.css';
+import increaseItemCount from './actions';
 
 class OrderItem extends Component {
   increase() {
-    this.props.increaseCallback(this.props.index);
+    this.setState(increaseItemCount);
+    // this.props.increaseCallback(this.props.index);
   }
 
   decrease() {
@@ -33,7 +35,7 @@ class OrderItem extends Component {
           <Button onClick={this.decrease.bind(this)} color="secondary">
             -
           </Button>{' '}
-          <Button onClick={this.increase.bind(this)} color="secondary">
+          <Button onClick={this.increase()} color="secondary">
             +
           </Button>{' '}
           {this.props.item.quantity} x € {this.props.item.unitPrice}
@@ -56,7 +58,7 @@ OrderItem.propTypes = {
     unitPrice: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired
   }),
-  increaseCallback: PropTypes.func.isRequired,
+  increaseHandle: PropTypes.func.isRequired,
   decreaseCallback: PropTypes.func.isRequired,
   removeCallback: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired

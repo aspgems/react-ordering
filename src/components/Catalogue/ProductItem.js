@@ -13,10 +13,6 @@ import {
 import './ProductItem.css';
 
 class ProductItem extends Component {
-  add() {
-    this.props.addCallback(this.props.product);
-  }
-
   render() {
     return (
       <div className="col-sm-12 col-md-6">
@@ -26,7 +22,7 @@ class ProductItem extends Component {
             <CardSubtitle>{this.props.product.category}</CardSubtitle>
             <CardText>€ {this.props.product.price}</CardText>
             <Button
-              onClick={this.add.bind(this)}
+              onClick={this.props.addToCartHandler}
               color="primary"
               id={'button_add_' + this.props.product.id}
             >
@@ -40,7 +36,7 @@ class ProductItem extends Component {
 }
 
 ProductItem.propTypes = {
-  addCallback: PropTypes.func.isRequired,
+  addToCartHandler: PropTypes.func.isRequired,
   product: ProductPropType
 };
 
