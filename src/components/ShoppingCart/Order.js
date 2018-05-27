@@ -8,7 +8,10 @@ class Order extends Component {
     if (Object.keys(this.props.order).length > 0) {
       return (
         <div>
-          <OrderItemList items={this.props.order.items} />
+          <OrderItemList
+            items={this.props.order.items}
+            increaseItemCountHandler={this.props.increaseItemCountHandler}
+          />
           <Summary items={this.props.order.items} />
         </div>
       );
@@ -19,7 +22,8 @@ class Order extends Component {
 }
 
 Order.propTypes = {
-  order: PropTypes.object.isRequired
+  order: PropTypes.object.isRequired,
+  increaseItemCountHandler: PropTypes.func.isRequired
 };
 
 export default Order;

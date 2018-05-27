@@ -11,11 +11,11 @@ class OrderItemList extends Component {
           return (
             <OrderItem
               key={index}
-              item={item}
-              index={index}
-              removeCallback={this.props.removeCallback}
-              increaseCallback={this.props.increaseCallback}
-              decreaseCallback={this.props.decreaseCallback}
+              productId={item.productId}
+              quantity={item.quantity}
+              unitPrice={item.unitPrice}
+              total={item.total}
+              increaseQuantityHandler={this.props.increaseItemCountHandler}
             />
           );
         })}
@@ -26,9 +26,10 @@ class OrderItemList extends Component {
 
 OrderItemList.propTypes = {
   items: PropTypes.array.isRequired,
-  removeCallback: PropTypes.func.isRequired,
-  increaseCallback: PropTypes.func.isRequired,
-  decreaseCallback: PropTypes.func.isRequired
+  increaseItemCountHandler: PropTypes.func.isRequired
+  // removeCallback: PropTypes.func.isRequired,
+  // increaseCallback: PropTypes.func.isRequired,
+  // decreaseCallback: PropTypes.func.isRequired
 };
 
 export default OrderItemList;

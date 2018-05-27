@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
 import { Container as CatalogueContainer } from './components/Catalogue';
-import { Order } from './components/ShoppingCart/';
+import { Container as ShoppingCartContainer } from './components/ShoppingCart/';
 
 class App extends Component {
   render() {
@@ -24,7 +24,7 @@ class App extends Component {
             </Col>
             <Col sm="12" md="4">
               <h2>Shopping Cart</h2>
-              <Order order={{}} />
+              <ShoppingCartContainer />
             </Col>
           </Row>
         </Container>
