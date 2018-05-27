@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ProductList from './ProductList';
 import config from './config';
 import PropTypes from 'prop-types';
+import ProductItem from './ProductItem';
 
-class Container extends Component {
+class ProductsListContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,10 +13,20 @@ class Container extends Component {
 
   render() {
     return (
-      <ProductList
-        products={this.state.products}
-        addToCartHandler={this.props.addToCartHandler}
-      />
+      <div>
+        <h2>Product List</h2>
+        <div className="row">
+          {this.state.products.map(p => {
+            return (
+              <ProductItem
+                key={p.id}
+                product={p}
+                addToCartHandler={this.props.addToCartHandler}
+              />
+            );
+          })}
+        </div>
+      </div>
     );
   }
 
@@ -43,7 +53,7 @@ class Container extends Component {
   _handleByProduct;
 }
 
-Container.propTypes = {
+ProductsListContainer.propTypes = {
   addToCartHandler: PropTypes.func.isRequired
 };
-export default Container;
+export default ProductsListContainer;

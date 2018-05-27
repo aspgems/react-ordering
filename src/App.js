@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
-import { Container as CatalogueContainer } from './components/Catalogue';
+import { ProductsListContainer } from './components/Catalogue';
 import { Container as ShoppingCartContainer } from './components/ShoppingCart/';
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
         <Container>
           <Row>
             <Col sm="12" md="8">
-              <CatalogueContainer
+              <ProductsListContainer
                 addToCartHandler={() => {
                   console.log('added to cart');
                 }}
