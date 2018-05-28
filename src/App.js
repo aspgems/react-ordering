@@ -11,6 +11,7 @@ import {
   Button
 } from 'reactstrap';
 import ProductItem from './components/ProductItem';
+import OrderItem from './components/OrderItem';
 import logo from './logo.svg';
 import './App.css';
 import state from './state';
@@ -38,18 +39,6 @@ class App extends Component {
 
   addToCartHandler(productId) {
     this.setState(state.addToCart(this.productIdToItem(productId)));
-  }
-
-  increaseItemHandler(productId) {
-    this.setState(state.increaseItem(productId));
-  }
-
-  decreaseItemHandler(productId) {
-    this.setState(state.decreaseItem(productId));
-  }
-
-  removeItemHandler(productId) {
-    this.setState(state.removeItem(productId));
   }
 
   placeOrderHandler() {
@@ -129,43 +118,14 @@ class App extends Component {
                   <ListGroup>
                     {this.state.order.items.map((item, index) => {
                       return (
-                        <ListGroupItem key={index}>
-                          <ListGroupItemHeading>
-                            {item.productId} <br />
-                          </ListGroupItemHeading>
-                          <ListGroupItemText>
-                            <Button
-                              onClick={() =>
-                                this.decreaseItemHandler(item.productId)
-                              }
-                              color="secondary"
-                            >
-                              -
-                            </Button>{' '}
-                            <Button
-                              onClick={() => {
-                                this.increaseItemHandler(item.productId);
-                              }}
-                              color="secondary"
-                            >
-                              +
-                            </Button>{' '}
-                            {item.quantity} x € {item.unitPrice}
-                          </ListGroupItemText>
-                          <ListGroupItemText>
-                            Subtotal Item: € {item.total}
-                            <br />
-                            <Button
-                              outline
-                              color="danger"
-                              onClick={() =>
-                                this.removeItemHandler(item.productId)
-                              }
-                            >
-                              Remove
-                            </Button>
-                          </ListGroupItemText>
-                        </ListGroupItem>
+                        <OrderItem
+                          key={index}
+                          item={item}
+                          index={index}
+                          removeCallback={this.props.removeCallback}
+                          increaseCallback={this.props.increaseCallback}
+                          decreaseCallback={this.props.decreaseCallback}
+                        />
                       );
                     })}
                   </ListGroup>
