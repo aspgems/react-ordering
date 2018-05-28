@@ -52,6 +52,10 @@ class App extends Component {
     this.setState(state.removeItem(productId));
   }
 
+  placeOrderHandler() {
+    console.log('placing Order');
+  }
+
   componentDidMount() {
     fetch(config.order.api.host + config.order.api.orderPath(1))
       .then(response => response.json())
@@ -165,7 +169,13 @@ class App extends Component {
                       );
                     })}
                   </ListGroup>
-                  <Alert color="dark">Total: € {this.state.order.total}</Alert>
+                  <Alert color="dark">
+                    Total: € {this.state.order.total}
+                    <br />
+                    <Button color="primary" onClick={this.placeOrderHandler}>
+                      Buy
+                    </Button>
+                  </Alert>
                 </div>
               ) : (
                 <div>Empty</div>
