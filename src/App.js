@@ -6,8 +6,8 @@ import ProductItem from './components/ProductItem';
 import logo from './logo.svg';
 import './App.css';
 import state from './state';
-import api from './api';
-import config from './config';
+import orderAPI from './api/orders';
+import productAPI from './api/products';
 
 class App extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ class App extends Component {
   }
 
   placeOrderHandler() {
-    api
+    orderAPI
       .createOrUpdateOrder(this.state.order)
       .then(() => {
         alert('Order successfully placed');
@@ -59,13 +59,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(config.order.api.host + config.order.api.orderPath(1))
-      .then(response => response.json())
+    orderAPI
+      .getOrder(1)
       .then(data => this.setState({ order: this._parseOrderJSON(data) }))
       .catch(e => console.log(e));
 
-    fetch(config.products.api.host + config.products.api.productsPath)
-      .then(response => response.json())
+    productAPI
+      .getProducts()
       .then(data =>
         this.setState({
           products: data.map(product => this._parseProductJSON(product))
