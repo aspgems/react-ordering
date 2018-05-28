@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -11,28 +11,24 @@ import {
 } from 'reactstrap';
 import './ProductItem.css';
 
-class ProductItem extends Component {
-  render() {
-    return (
-      <div className="col-sm-12 col-md-6">
-        <Card>
-          <CardBody>
-            <CardTitle>{this.props.product.description}</CardTitle>
-            <CardSubtitle>{this.props.product.category}</CardSubtitle>
-            <CardText>€ {this.props.product.price}</CardText>
-            <Button
-              onClick={this.props.addToCartHandler}
-              color="primary"
-              id={'button_add_' + this.props.product.id}
-            >
-              Add to cart
-            </Button>
-          </CardBody>
-        </Card>
-      </div>
-    );
-  }
-}
+const ProductItem = props => (
+  <div className="col-sm-12 col-md-6">
+    <Card>
+      <CardBody>
+        <CardTitle>{props.product.description}</CardTitle>
+        <CardSubtitle>{props.product.category}</CardSubtitle>
+        <CardText>€ {props.product.price}</CardText>
+        <Button
+          onClick={props.addToCartHandler}
+          color="primary"
+          id={'button_add_' + props.product.id}
+        >
+          Add to cart
+        </Button>
+      </CardBody>
+    </Card>
+  </div>
+);
 
 ProductItem.propTypes = {
   addToCartHandler: PropTypes.func.isRequired,

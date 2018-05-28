@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import {
-  // Order
-
-  Alert,
-  ListGroup,
-  ListGroupItemHeading,
-  ListGroupItem,
-  ListGroupItemText,
-  Button
-} from 'reactstrap';
+import OrderItem from './components/OrderItem';
+import { Alert, ListGroup, Button } from 'reactstrap';
 import ProductItem from './components/ProductItem';
 import logo from './logo.svg';
 import './App.css';
@@ -28,6 +20,10 @@ class App extends Component {
       },
       products: []
     };
+    this.increaseItemHandler = this.increaseItemHandler.bind(this);
+    this.decreaseItemHandler = this.decreaseItemHandler.bind(this);
+    this.removeItemHandler = this.removeItemHandler.bind(this);
+    this.addToCartHandler = this.addToCartHandler.bind(this);
   }
 
   productIdToItem(productId) {
@@ -127,47 +123,21 @@ class App extends Component {
               {this.state.order.items.length > 0 ? (
                 <div>
                   <ListGroup>
-                    {this.state.order.items.map((item, index) => {
-                      return (
-                        <ListGroupItem key={index}>
-                          <ListGroupItemHeading>
-                            {item.productId} <br />
-                          </ListGroupItemHeading>
-                          <ListGroupItemText>
-                            <Button
-                              onClick={() =>
-                                this.decreaseItemHandler(item.productId)
-                              }
-                              color="secondary"
-                            >
-                              -
-                            </Button>{' '}
-                            <Button
-                              onClick={() => {
-                                this.increaseItemHandler(item.productId);
-                              }}
-                              color="secondary"
-                            >
-                              +
-                            </Button>{' '}
-                            {item.quantity} x € {item.unitPrice}
-                          </ListGroupItemText>
-                          <ListGroupItemText>
-                            Subtotal Item: € {item.total}
-                            <br />
-                            <Button
-                              outline
-                              color="danger"
-                              onClick={() =>
-                                this.removeItemHandler(item.productId)
-                              }
-                            >
-                              Remove
-                            </Button>
-                          </ListGroupItemText>
-                        </ListGroupItem>
-                      );
-                    })}
+                    {this.state.order.items.map((item, index) => (
+                      <OrderItem
+                        item={item}
+                        key={index}
+                        increaseItemHandler={() =>
+                          this.increaseItemHandler(item.productId)
+                        }
+                        removeItemHandler={() =>
+                          this.removeItemHandler(item.productId)
+                        }
+                        decreaseItemHandler={() =>
+                          this.decreaseItemHandler(item.productId)
+                        }
+                      />
+                    ))}
                   </ListGroup>
                   <Alert color="dark">
                     Total: € {this.state.order.total}
