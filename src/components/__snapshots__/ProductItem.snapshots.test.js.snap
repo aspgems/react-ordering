@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it shows correctly 1`] = `
+<div
+  className="col-sm-12 col-md-6"
+>
+  <div
+    className="card"
+  >
+    <div
+      className="card-body"
+    >
+      <h5
+        className="card-title"
+      >
+        Description
+      </h5>
+      <h6
+        className="card-subtitle"
+      >
+        Category
+      </h6>
+      <p
+        className="card-text"
+      >
+        € 
+        10.5
+      </p>
+      <button
+        className="btn btn-primary"
+        id="button_add_A134"
+        onClick={[Function]}
+        type="button"
+      >
+        Add to cart
+      </button>
+    </div>
+  </div>
+</div>
+`;

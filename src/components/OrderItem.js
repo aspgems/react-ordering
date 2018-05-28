@@ -13,10 +13,18 @@ const OrderItem = props => (
       {props.item.productId} <br />
     </ListGroupItemHeading>
     <ListGroupItemText>
-      <Button onClick={props.decreaseItemHandler} color="secondary">
+      <Button
+        onClick={props.decreaseItemHandler}
+        color="secondary"
+        className="decrease-item-button"
+      >
         -
       </Button>{' '}
-      <Button onClick={props.increaseItemHandler} color="secondary">
+      <Button
+        onClick={props.increaseItemHandler}
+        color="secondary"
+        className="increase-item-button"
+      >
         +
       </Button>{' '}
       {props.item.quantity} x € {props.item.unitPrice}
@@ -24,7 +32,12 @@ const OrderItem = props => (
     <ListGroupItemText>
       Subtotal Item: € {props.item.total}
       <br />
-      <Button outline color="danger" onClick={props.removeItemHandler}>
+      <Button
+        outline
+        color="danger"
+        onClick={props.removeItemHandler}
+        className="remove-item-button"
+      >
         Remove
       </Button>
     </ListGroupItemText>
