@@ -11,16 +11,16 @@ import {
 
 class OrderItem extends Component {
   increaseItemHandler(productId) {
-    this.setState(this.props.state.increaseItem(productId));
+    this.setState(this.state.increaseItem(productId));
   }
-
   decreaseItemHandler(productId) {
-    this.setState(this.props.state.decreaseItem(productId));
+    this.setState(this.state.decreaseItem(productId));
   }
 
   removeItemHandler(productId) {
-    this.setState(this.props.state.removeItem(productId));
+    this.setState(this.state.removeItem(productId));
   }
+
   render() {
     return (
       <ListGroupItem>
@@ -29,16 +29,14 @@ class OrderItem extends Component {
         </ListGroupItemHeading>
         <ListGroupItemText>
           <Button
-            onClick={() =>
-              this.props.decreaseItemHandler(this.props.item.productId)
-            }
+            onClick={() => this.decreaseItemHandler(this.props.item.productId)}
             color="secondary"
           >
             -
           </Button>{' '}
           <Button
             onClick={() => {
-              this.props.increaseItemHandler(this.props.item.productId);
+              this.increaseItemHandler(this.props.item.productId);
             }}
             color="secondary"
           >
