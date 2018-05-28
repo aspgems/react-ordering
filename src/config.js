@@ -4,7 +4,7 @@ export default {
       host: 'http://localhost:3001',
       orderPath: id => {
         if (id === null || id === undefined) {
-          return 'orders';
+          return '/orders';
         }
 
         return '/orders/' + id;

@@ -55,7 +55,7 @@ class App extends Component {
       .then(() => {
         alert('Order successfully placed');
       })
-      .catch(e => {});
+      .catch(e => console.log(e));
   }
 
   componentDidMount() {
