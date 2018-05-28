@@ -1,0 +1,18 @@
+version: '3'
+services:
+  frontend:
+    build: .
+    command: npm start
+    links:
+      - backend
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/teamleader:delegated
+  backend:
+    build: .
+    command: npm run start-server
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/teamleader:delegated

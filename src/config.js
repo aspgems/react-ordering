@@ -1,16 +1,20 @@
 export default {
   order: {
     api: {
-      host: '',
+      host: 'http://localhost:3001',
       orderPath: id => {
-        return '/data/orders/' + id + '.json';
+        if (id === null || id === undefined) {
+          return '/orders';
+        }
+
+        return '/orders/' + id;
       }
     }
   },
   products: {
     api: {
-      host: 'https://raw.githubusercontent.com',
-      productsPath: '/aspgems/react-ordering/master/public/data/products.json'
+      host: 'http://localhost:3001',
+      productsPath: '/products'
     }
   }
 };

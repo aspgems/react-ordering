@@ -6,7 +6,8 @@ import ProductItem from './components/ProductItem';
 import logo from './logo.svg';
 import './App.css';
 import state from './state';
-import config from './config';
+import orderAPI from './api/orders';
+import productAPI from './api/products';
 
 class App extends Component {
   constructor(props) {
@@ -49,17 +50,22 @@ class App extends Component {
   }
 
   placeOrderHandler() {
-    console.log('placing Order');
+    orderAPI
+      .createOrUpdateOrder(this.state.order)
+      .then(() => {
+        alert('Order successfully placed');
+      })
+      .catch(e => console.log(e));
   }
 
   componentDidMount() {
-    fetch(config.order.api.host + config.order.api.orderPath(1))
-      .then(response => response.json())
+    orderAPI
+      .getOrder(1)
       .then(data => this.setState({ order: this._parseOrderJSON(data) }))
       .catch(e => console.log(e));
 
-    fetch(config.products.api.host + config.products.api.productsPath)
-      .then(response => response.json())
+    productAPI
+      .getProducts()
       .then(data =>
         this.setState({
           products: data.map(product => this._parseProductJSON(product))
@@ -142,7 +148,10 @@ class App extends Component {
                   <Alert color="dark">
                     Total: € {this.state.order.total}
                     <br />
-                    <Button color="primary" onClick={this.placeOrderHandler}>
+                    <Button
+                      color="primary"
+                      onClick={this.placeOrderHandler.bind(this)}
+                    >
                       Buy
                     </Button>
                   </Alert>
