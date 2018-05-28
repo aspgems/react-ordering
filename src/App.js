@@ -1,56 +1,102 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import OrderItem from './components/OrderItem';
+import { Alert, ListGroup, Button } from 'reactstrap';
+import ProductItem from './components/ProductItem';
 import logo from './logo.svg';
 import './App.css';
-import { product2orderItem, parseOrderJSON, parseProductJSON } from './mappers';
-import {
-  ProductList,
-  initState as initCatalogueState,
-  NAMESPACE as CATALOGUE_NAMESPACE,
-  API_HOST as CATALOGUE_API_HOST,
-  DEFAULT_QUERY as PRODUCTS_QUERY
-} from './components/Catalogue/';
-import {
-  ShoppingCart,
-  initState as initShoppingCartState,
-  increaseItemCount,
-  decreaseItemCount,
-  removeItem,
-  NAMESPACE as SHOPPING_CART_NAMESPACE,
-  addItem,
-  API_HOST as ORDER_API_HOST,
-  orderPath
-} from './components/ShoppingCart/';
+import state from './state';
+import orderAPI from './api/orders';
+import productAPI from './api/products';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      [CATALOGUE_NAMESPACE]: initCatalogueState(),
-      [SHOPPING_CART_NAMESPACE]: initShoppingCartState()
+      order: {
+        id: null,
+        customerId: null,
+        items: [],
+        total: 0
+      },
+      products: []
+    };
+    this.increaseItemHandler = this.increaseItemHandler.bind(this);
+    this.decreaseItemHandler = this.decreaseItemHandler.bind(this);
+    this.removeItemHandler = this.removeItemHandler.bind(this);
+    this.addToCartHandler = this.addToCartHandler.bind(this);
+  }
+
+  productIdToItem(productId) {
+    const product = state.getProductById(this.state.products, productId);
+    const item = state.productToItem(product);
+    return item;
+  }
+
+  addToCartHandler(productId) {
+    this.setState(state.addToCart(this.productIdToItem(productId)));
+  }
+
+  increaseItemHandler(productId) {
+    this.setState(state.increaseItem(productId));
+  }
+
+  decreaseItemHandler(productId) {
+    this.setState(state.decreaseItem(productId));
+  }
+
+  removeItemHandler(productId) {
+    this.setState(state.removeItem(productId));
+  }
+
+  placeOrderHandler() {
+    orderAPI
+      .createOrUpdateOrder(this.state.order)
+      .then(() => {
+        alert('Order successfully placed');
+      })
+      .catch(e => console.log(e));
+  }
+
+  componentDidMount() {
+    orderAPI
+      .getOrder(1)
+      .then(data => this.setState({ order: this._parseOrderJSON(data) }))
+      .catch(e => console.log(e));
+
+    productAPI
+      .getProducts()
+      .then(data =>
+        this.setState({
+          products: data.map(product => this._parseProductJSON(product))
+        })
+      )
+      .catch(e => console.log(e));
+  }
+
+  _parseProductJSON(data) {
+    return {
+      id: data.id,
+      description: data.description,
+      category: data.category,
+      price: Number(parseFloat(data.price).toFixed(2))
     };
   }
 
-  increase(index) {
-    this.setState(
-      increaseItemCount(index, this.state[SHOPPING_CART_NAMESPACE])
-    );
-  }
-
-  decrease(index) {
-    this.setState(
-      decreaseItemCount(index, this.state[SHOPPING_CART_NAMESPACE])
-    );
-  }
-
-  remove(index) {
-    this.setState(removeItem(index, this.state[SHOPPING_CART_NAMESPACE]));
-  }
-
-  add(product) {
-    this.setState(
-      addItem(product2orderItem(product), this.state[SHOPPING_CART_NAMESPACE])
-    );
+  _parseOrderJSON(data) {
+    return {
+      id: Number(data.id),
+      customerId: Number(data.id),
+      items: data.items.map(function(item) {
+        return {
+          productId: item.productId,
+          quantity: Number(item.quantity),
+          unitPrice: Number(parseFloat(item.unitPrice).toFixed(2)),
+          total: Number(parseFloat(item.total).toFixed(2))
+        };
+      }),
+      total: data.total
+    };
   }
 
   render() {
@@ -63,42 +109,61 @@ class App extends Component {
         <Container>
           <Row>
             <Col sm="12" md="8">
-              <ProductList
-                products={this.state[CATALOGUE_NAMESPACE]}
-                addCallback={this.add.bind(this)}
-              />
+              <div>
+                <h2>Product List</h2>
+                <div className="row">
+                  {this.state.products.map(p => {
+                    return (
+                      <ProductItem
+                        key={p.id}
+                        product={p}
+                        addToCartHandler={() => this.addToCartHandler(p.id)}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
             </Col>
             <Col sm="12" md="4">
               <h2>Shopping Cart</h2>
-              <ShoppingCart
-                order={this.state[SHOPPING_CART_NAMESPACE]}
-                removeCallback={this.remove.bind(this)}
-                decreaseCallback={this.decrease.bind(this)}
-                increaseCallback={this.increase.bind(this)}
-              />
+              {this.state.order.items.length > 0 ? (
+                <div>
+                  <ListGroup>
+                    {this.state.order.items.map((item, index) => (
+                      <OrderItem
+                        item={item}
+                        key={index}
+                        increaseItemHandler={() =>
+                          this.increaseItemHandler(item.productId)
+                        }
+                        removeItemHandler={() =>
+                          this.removeItemHandler(item.productId)
+                        }
+                        decreaseItemHandler={() =>
+                          this.decreaseItemHandler(item.productId)
+                        }
+                      />
+                    ))}
+                  </ListGroup>
+                  <Alert color="dark">
+                    Total: € {this.state.order.total}
+                    <br />
+                    <Button
+                      color="primary"
+                      onClick={this.placeOrderHandler.bind(this)}
+                    >
+                      Buy
+                    </Button>
+                  </Alert>
+                </div>
+              ) : (
+                <div>Empty</div>
+              )}
             </Col>
           </Row>
         </Container>
       </div>
     );
-  }
-
-  componentDidMount() {
-    fetch(CATALOGUE_API_HOST + PRODUCTS_QUERY)
-      .then(response => response.json())
-      .then(data =>
-        this.setState({
-          [CATALOGUE_NAMESPACE]: data.map(product => parseProductJSON(product))
-        })
-      )
-      .catch(e => console.log(e));
-
-    fetch(ORDER_API_HOST + orderPath(1))
-      .then(response => response.json())
-      .then(data =>
-        this.setState({ [SHOPPING_CART_NAMESPACE]: parseOrderJSON(data) })
-      )
-      .catch(e => console.log(e));
   }
 }
 
