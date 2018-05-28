@@ -13,7 +13,7 @@ import {
 import ProductItem from './components/ProductItem';
 import logo from './logo.svg';
 import './App.css';
-import actions from './state';
+import state from './state';
 import config from './config';
 
 class App extends Component {
@@ -30,16 +30,26 @@ class App extends Component {
     };
   }
 
+  productIdToItem(productId) {
+    const product = state.getProductById(this.state.products, productId);
+    const item = state.productToItem(product);
+    return item;
+  }
+
+  addToCartHandler(productId) {
+    this.setState(state.addToCart(this.productIdToItem(productId)));
+  }
+
   increaseItemHandler(productId) {
-    this.setState(actions.increaseItem(productId));
+    this.setState(state.increaseItem(productId));
   }
 
   decreaseItemHandler(productId) {
-    this.setState(actions.decreaseItem(productId));
+    this.setState(state.decreaseItem(productId));
   }
 
   removeItemHandler(productId) {
-    this.setState(actions.removeItem(productId));
+    this.setState(state.removeItem(productId));
   }
 
   componentDidMount() {
@@ -101,7 +111,7 @@ class App extends Component {
                       <ProductItem
                         key={p.id}
                         product={p}
-                        addToCartHandler={() => console.log('added to cart')}
+                        addToCartHandler={() => this.addToCartHandler(p.id)}
                       />
                     );
                   })}

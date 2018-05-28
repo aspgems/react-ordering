@@ -1,15 +1,30 @@
 // selectors
-export const calculateOrderTotal = items => {
+const calculateOrderTotal = items => {
   return items.reduce((acc, item) => {
     return acc + item.total;
   }, 0);
 };
-export const calulateItemTotal = item => {
+
+const calulateItemTotal = item => {
   return Number(parseFloat(item.quantity * item.unitPrice).toFixed(2));
 };
 
-// mutations
-export const buildItem = item => {
+const getProductById = (products, productId) => {
+  return products.find(product => {
+    return product.id === productId;
+  });
+};
+
+// builders
+const productToItem = product => {
+  return buildItem({
+    productId: product.id,
+    unitPrice: product.price,
+    quantity: 1
+  });
+};
+
+const buildItem = item => {
   return {
     productId: item.productId,
     quantity: item.quantity,
@@ -18,7 +33,8 @@ export const buildItem = item => {
   };
 };
 
-export const itemsIncrease = (items, productId) => {
+// reducers
+const itemsIncrease = (items, productId) => {
   return items.map(item => {
     if (item.productId === productId) {
       return buildItem({ ...item, quantity: item.quantity + 1 });
@@ -28,7 +44,7 @@ export const itemsIncrease = (items, productId) => {
   });
 };
 
-export const itemsDecrease = (items, productId) => {
+const itemsDecrease = (items, productId) => {
   return items.map(item => {
     if (item.productId === productId && item.quantity > 0) {
       return buildItem({ ...item, quantity: item.quantity - 1 });
@@ -38,12 +54,16 @@ export const itemsDecrease = (items, productId) => {
   });
 };
 
-export const itemsRemove = (items, productId) => {
+const itemsRemove = (items, productId) => {
   return items.filter(item => item.productId !== productId);
 };
 
+const itemsAdd = (items, item) => {
+  return items.concat(item);
+};
+
 // actions
-export const increaseItem = productId => {
+const increaseItem = productId => {
   return state => {
     const prevState = state.order;
     const items = itemsIncrease(prevState.items, productId);
@@ -58,7 +78,7 @@ export const increaseItem = productId => {
   };
 };
 
-export const decreaseItem = productId => {
+const decreaseItem = productId => {
   return state => {
     const prevState = state.order;
     const items = itemsDecrease(prevState.items, productId);
@@ -73,7 +93,7 @@ export const decreaseItem = productId => {
   };
 };
 
-export const removeItem = productId => {
+const removeItem = productId => {
   return state => {
     const prevState = state.order;
     const items = itemsRemove(prevState.items, productId);
@@ -88,4 +108,26 @@ export const removeItem = productId => {
   };
 };
 
-export default { removeItem, decreaseItem, increaseItem };
+const addToCart = item => {
+  return state => {
+    const prevState = state.order;
+    const items = itemsAdd(prevState.items, item);
+    return {
+      order: {
+        id: prevState.id,
+        customerId: prevState.customerId,
+        items: items,
+        total: calculateOrderTotal(items)
+      }
+    };
+  };
+};
+
+export default {
+  removeItem,
+  decreaseItem,
+  increaseItem,
+  addToCart,
+  getProductById,
+  productToItem
+};
