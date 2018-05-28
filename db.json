@@ -67,9 +67,15 @@
           "quantity": 10,
           "unitPrice": 4.99,
           "total": 49.9
+        },
+        {
+          "productId": "A102",
+          "quantity": 1,
+          "unitPrice": 49.5,
+          "total": 49.5
         }
       ],
-      "total": 49.9
+      "total": 99.4
     },
     {
       "id": "2",
