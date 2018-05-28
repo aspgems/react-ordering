@@ -46,7 +46,7 @@ const itemsIncrease = (items, productId) => {
 
 const itemsDecrease = (items, productId) => {
   return items.map(item => {
-    if (item.productId === productId && item.quantity > 0) {
+    if (item.productId === productId && item.quantity > 1) {
       return buildItem({ ...item, quantity: item.quantity - 1 });
     }
 
@@ -59,7 +59,9 @@ const itemsRemove = (items, productId) => {
 };
 
 const itemsAdd = (items, item) => {
-  return items.concat(item);
+  return items.find(i => i.productId === item.productId)
+    ? itemsIncrease(items, item.productId)
+    : items.concat(item);
 };
 
 // actions
