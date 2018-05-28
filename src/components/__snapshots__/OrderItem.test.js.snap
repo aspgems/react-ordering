@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it shows correctly 1`] = `
+<li
+  className="list-group-item"
+>
+  <h5
+    className="list-group-item-heading"
+  >
+    A134
+     
+    <br />
+  </h5>
+  <p
+    className="list-group-item-text"
+  >
+    <button
+      className="btn btn-secondary"
+      onClick={[Function]}
+      type="button"
+    >
+      -
+    </button>
+     
+    <button
+      className="btn btn-secondary"
+      onClick={[Function]}
+      type="button"
+    >
+      +
+    </button>
+     
+    10
+     x € 
+    10.5
+  </p>
+  <p
+    className="list-group-item-text"
+  >
+    Subtotal Item: € 
+    105
+    <br />
+    <button
+      className="btn btn-outline-danger"
+      onClick={[Function]}
+      type="button"
+    >
+      Remove
+    </button>
+  </p>
+</li>
+`;
