@@ -6,6 +6,7 @@ import ProductItem from './components/ProductItem';
 import logo from './logo.svg';
 import './App.css';
 import state from './state';
+import api from './api';
 import config from './config';
 
 class App extends Component {
@@ -49,7 +50,12 @@ class App extends Component {
   }
 
   placeOrderHandler() {
-    console.log('placing Order');
+    api
+      .createOrUpdateOrder(this.state.order)
+      .then(() => {
+        alert('Order successfully placed');
+      })
+      .catch(e => {});
   }
 
   componentDidMount() {
@@ -142,7 +148,10 @@ class App extends Component {
                   <Alert color="dark">
                     Total: € {this.state.order.total}
                     <br />
-                    <Button color="primary" onClick={this.placeOrderHandler}>
+                    <Button
+                      color="primary"
+                      onClick={this.placeOrderHandler.bind(this)}
+                    >
                       Buy
                     </Button>
                   </Alert>
