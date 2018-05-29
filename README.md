@@ -30,29 +30,55 @@ and start your development server with
 npm run start
 ```
 ## npm scripts
-|script             |description                            |
-|-------------------|---------------------------------------|
-|`npm run start`    |Starts your dev server at port 3000    |
-|`npm test`         |Runs your tests                        |
-|`npm lint`         |Runs your linter                       |
-|`npm run build`    |Builds the app                         |
-|`npm run storybook`|Runs storybook at port 9001            |
+|script                 |description                                                          |
+|-----------------------|---------------------------------------------------------------------|
+|`npm run start`        |Starts your dev server at port 3000                                  |
+|`npm test`             |Runs your tests                                                      |
+|`npm lint`             |Runs your linter                                                     |
+|`npm run build`        |Builds the app                                                       |
+|`npm run storybook`    |Runs storybook at port 9001                                          |
+|`npm run start-server` |Runs a json server mocking the API. (Intended to be used from docker)|
 
 # Project structure
 This projects tries to follow a modular development approach.
 
-Under `src` folder there is one folder for each modules. Right now we have only two of them:
+## Components
+Under `src` folder there is components folder conaining all the available components. Right now we have only two of them:
 
-- **Catalogue**: To deal with everything related with products
-- **ShoppingCart**: To deal with the shopping cart (Obvious isn't it?)
+- **OrderItem**: Deals with a product in the product list. Contains the button that allows adding it to the shopping cart.
+- **ProductItem**: To deal with a product added to the shopping cart. Allows increasing/decreasing quantity as well as removing it from the cart.
 
 Every module follows the following convention:
 
-- It comes with a `config.js` file which holds different configuration params (e.g: namespace, API endpoints, etc.)
-- It comes with a `actions.js` file which contains logic which modifies state. This is done using pure functions
-- It comes with a `PropTypes.js` file which contains `PropTypes` for the components
-- It comes with a `index.js` file which exports every public submodule available from the outside
-- It comes with a `__test__` folder which contains test files
+- It comes with a `<Component name>.js` file which holds the sources for the component.
+- It optionally comes with a `<Component name>.css` file which contains the required stylesheet to render the component.
+- It comes with a `<Component name>.snapshots.test.js` with the tests for the component.
+
+
+## API
+The api folder contains the required classes to consume data from the backend. Currently only two classes exists:
+
+- **orders.js**: Allows loading, creating or updating orders.
+- **products.js**: Allows retrieving the list of available products.
+
+# Docker support:
+The project comes with docker-compose support. In order to execute the project you need to first and foremost build the image:
+
+```bash
+docker-compose build
+```
+
+Now you're ready to execute the application:
+
+```bash
+docker-compose up
+```
+
+It will start three containers exposing the following services:
+
+- **http://localhost:3000**: React application.
+- **http://localhost:3001**: Backend server with a mocked API.
+- **http://localhost:9001**: The app' storybook.
 
 # Storybook
 This project comes with storybook. Place your stories files together with their related components with a `.stories.js` extension

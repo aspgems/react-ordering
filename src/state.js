@@ -1,8 +1,10 @@
 // selectors
 const calculateOrderTotal = items => {
-  return items.reduce((acc, item) => {
-    return acc + item.total;
-  }, 0);
+  return items
+    .reduce((acc, item) => {
+      return acc + item.total;
+    }, 0)
+    .toFixed(2);
 };
 
 const calulateItemTotal = item => {
