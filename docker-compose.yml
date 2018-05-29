@@ -1,7 +1,7 @@
 version: '3'
 services:
   frontend:
-    build: .
+    image: aspgems/react-ordering
     command: npm start
     entrypoint: /teamleader/scripts/entrypoint.sh
     depends_on:
@@ -12,11 +12,12 @@ services:
       - .:/teamleader:delegated
   backend:
     build: .
+    image: aspgems/react-ordering
     command: npm run start-server
     ports:
       - 3001:3001
   storybook:
-    build: .
+    image: aspgems/react-ordering
     command: npm run storybook
     depends_on:
       - "backend"
