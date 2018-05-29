@@ -12,7 +12,8 @@ export default {
           return `${process.env.REACT_APP_ORDERS_API_PATH}/${id}`;
         }
       }
-    }
+    },
+    placeOrderEnabled: process.env.REACT_APP_PLACE_ORDER_ENABLED !== 'false'
   },
   products: {
     api: {

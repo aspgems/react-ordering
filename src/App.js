@@ -8,6 +8,7 @@ import './App.css';
 import state from './state';
 import orderAPI from './api/orders';
 import productAPI from './api/products';
+import config from './config';
 
 class App extends Component {
   constructor(props) {
@@ -50,12 +51,18 @@ class App extends Component {
   }
 
   placeOrderHandler() {
-    orderAPI
-      .createOrUpdateOrder(this.state.order)
-      .then(() => {
-        alert('Order successfully placed');
-      })
-      .catch(e => console.log(e));
+    if (config.order.placeOrderEnabled) {
+      orderAPI
+        .createOrUpdateOrder(this.state.order)
+        .then(() => {
+          alert('Order successfully placed');
+        })
+        .catch(e => console.log(e));
+    } else {
+      alert(
+        'Sorry, but this feature is not enabled until a backend server is in place. Clone the repo and run this project locally if you want to experience the full demo'
+      );
+    }
   }
 
   componentDidMount() {
