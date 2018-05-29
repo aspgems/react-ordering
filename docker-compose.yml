@@ -16,3 +16,10 @@ services:
       - 3001:3001
     volumes:
       - .:/teamleader:delegated
+  storybook:
+    build: .
+    command: npm run storybook
+    ports:
+      - 9001:9001
+    volumes:
+      - .:/teamleader:delegated

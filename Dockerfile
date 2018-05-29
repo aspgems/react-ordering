@@ -1,9 +1,11 @@
 FROM node:8
-LABEL maintainer="juan@aspgems.com"
+LABEL maintainer="info@aspgems.com"
 
 RUN mkdir /teamleader
 WORKDIR /teamleader
 
-ADD . /teamleader
+ADD package-lock.json package.json /teamleader/
 
 RUN npm install
+
+ADD . /teamleader/
