@@ -52,7 +52,8 @@ Every module follows the following convention:
 
 - It comes with a `<Component name>.js` file which holds the sources for the component.
 - It optionally comes with a `<Component name>.css` file which contains the required stylesheet to render the component.
-- It comes with a `<Component name>.snapshots.test.js` with the tests for the component.
+- It comes with a `<Component name>.snapshots.test.js` with the snapshot tests for the component.
+- It optionally comes with a `<Component name>.test.js` with the tests for the component.
 
 
 ## API
