@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import OrderItem from './components/OrderItem';
-import { Alert, ListGroup, Button } from 'reactstrap';
+import {
+  Alert,
+  ListGroup,
+  Card,
+  Button,
+  CardTitle,
+  CardText
+} from 'reactstrap';
 import ProductItem from './components/ProductItem';
 import logo from './logo.svg';
 import './App.css';
@@ -152,16 +159,17 @@ class App extends Component {
                       />
                     ))}
                   </ListGroup>
-                  <Alert color="dark">
-                    Total: € {this.state.order.total}
-                    <br />
+                  <Card body outline color="primary">
+                    <CardTitle>
+                      Total: <strong>€ {this.state.order.total}</strong>
+                    </CardTitle>
                     <Button
                       color="primary"
                       onClick={this.placeOrderHandler.bind(this)}
                     >
                       Buy
                     </Button>
-                  </Alert>
+                  </Card>
                 </div>
               ) : (
                 <div>Empty</div>
