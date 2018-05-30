@@ -19,6 +19,7 @@ WORKDIR /teamleader
 
 ADD package-lock.json package.json /teamleader/
 
-RUN npm install
+RUN npm install && \
+    npm install json-server -g
 
 ADD . /teamleader/
