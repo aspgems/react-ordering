@@ -16,6 +16,7 @@ const OrderItem = props => (
       <Button
         onClick={props.decreaseItemHandler}
         color="secondary"
+        size="sm"
         className="decrease-item-button"
       >
         -
@@ -23,6 +24,7 @@ const OrderItem = props => (
       <Button
         onClick={props.increaseItemHandler}
         color="secondary"
+        size="sm"
         className="increase-item-button"
       >
         +
@@ -35,6 +37,7 @@ const OrderItem = props => (
       <Button
         outline
         color="danger"
+        size="sm"
         onClick={props.removeItemHandler}
         className="remove-item-button"
       >
